@@ -1,0 +1,2508 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Asterinas Book</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "navy";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Asterinas Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-asterinas-book"><a class="header" href="#the-asterinas-book">The Asterinas Book</a></h1>
+<p align="center">
+    <img src="images/logo_en.svg" alt="asterinas-logo" width="620"><br>
+</p>
+<p>Welcome to the documentation for Asterinas,
+an open-source project and community
+focused on developing cutting-edge Rust OS kernels.</p>
+<h2 id="book-structure"><a class="header" href="#book-structure">Book Structure</a></h2>
+<p>This book is divided into five distinct parts:</p>
+<h4 id="part-1-asterinas-kernel"><a class="header" href="#part-1-asterinas-kernel"><a href="kernel/">Part 1: Asterinas Kernel</a></a></h4>
+<p>Explore the modern OS kernel at the heart of Asterinas.
+Designed to realize the full potential of Rust,
+Asterinas Kernel implements the Linux ABI in a safe and efficient way.
+This means it can seamlessly replace Linux,
+offering enhanced safety and security.</p>
+<h4 id="part-2-asterinas-ostd"><a class="header" href="#part-2-asterinas-ostd"><a href="ostd/">Part 2: Asterinas OSTD</a></a></h4>
+<p>The Asterinas OSTD lays down a minimalistic, powerful, and solid foundation
+for OS development.
+It's akin to Rust's <code>std</code> crate
+but crafted for the demands of <em>safe</em> Rust OS development.
+The Asterinas Kernel is built on this very OSTD.</p>
+<h4 id="part-3-asterinas-osdk"><a class="header" href="#part-3-asterinas-osdk"><a href="osdk/guide/">Part 3: Asterinas OSDK</a></a></h4>
+<p>The OSDK is a command-line tool
+that streamlines the workflow to
+create, build, test, and run Rust OS projects
+that are built upon Asterinas OSTD.
+Developed specifically for OS developers,
+it extends Rust's Cargo tool to better suite their specific needs.
+OSDK is instrumental in the development of Asterinas Kernel.</p>
+<h4 id="part-4-contributing-to-asterinas"><a class="header" href="#part-4-contributing-to-asterinas"><a href="to-contribute/">Part 4: Contributing to Asterinas</a></a></h4>
+<p>Asterinas is in its early stage
+and welcomes your contributions!
+This part provides guidance
+on how you can become an integral part of the Asterinas project.</p>
+<h4 id="part-5-requests-for-comments-rfcs"><a class="header" href="#part-5-requests-for-comments-rfcs"><a href="rfcs/">Part 5: Requests for Comments (RFCs)</a></a></h4>
+<p>Significant decisions in Asterinas are made through a transparent RFC process.
+This part describes the RFC process
+and archives all approvaed RFCs.</p>
+<h2 id="licensing"><a class="header" href="#licensing">Licensing</a></h2>
+<p>Asterinas's source code and documentation primarily use the
+<a href="https://github.com/asterinas/asterinas/blob/main/LICENSE-MPL">Mozilla Public License (MPL), Version 2.0</a>.
+Select components are under more permissive licenses,
+detailed <a href="https://github.com/asterinas/asterinas/blob/main/.licenserc.yaml">here</a>.</p>
+<p>Our choice of the <a href="https://www.tldrlegal.com/license/mozilla-public-license-2-0-mpl-2">weak-copyleft</a> MPL license reflects a strategic balance:</p>
+<ol>
+<li>
+<p><strong>Commitment to open-source freedom</strong>:
+We believe that OS kernels are a communal asset that should benefit humanity.
+The MPL ensures that any alterations to MPL-covered files remain open source,
+aligning with our vision.
+Additionally, we do not require contributors
+to sign a Contributor License Agreement (CLA),
+<a href="https://drewdevault.com/2018/10/05/Dont-sign-a-CLA.html">preserving their rights and preventing the possibility of their contributions being made closed source</a>.</p>
+</li>
+<li>
+<p><strong>Accommodating proprietary modules</strong>:
+Recognizing the evolving landscape
+where large corporations also contribute significantly to open-source,
+we accommodate the business need for proprietary kernel modules.
+Unlike GPL,
+the MPL permits the linking of MPL-covered files with proprietary code.</p>
+</li>
+</ol>
+<p>In conclusion, we believe that
+MPL is the best choice
+to foster a vibrant, robust, and inclusive open-source community around Asterinas.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="asterinas-kernel"><a class="header" href="#asterinas-kernel">Asterinas Kernel</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Asterinas is a <em>secure</em>, <em>fast</em>, and <em>general-purpose</em> OS kernel
+that provides an <em>Linux-compatible</em> ABI.
+It can serve as a seamless replacement for Linux
+while enhancing <em>memory safety</em> and <em>developer friendliness</em>.</p>
+<ul>
+<li>
+<p>Asterinas prioritizes memory safety
+by employing Rust as its sole programming language
+and limiting the use of <em>unsafe Rust</em>
+to a clearly defined and minimal Trusted Computing Base (TCB).
+This innovative approach,
+known as <a href="kernel/the-framekernel-architecture.html">the framekernel architecture</a>,
+establishes Asterinas as a more secure and dependable kernel option.</p>
+</li>
+<li>
+<p>Asterinas surpasses Linux in terms of developer friendliness.
+It empowers kernel developers to
+(1) utilize the more productive Rust programming language,
+(2) leverage a purpose-built toolkit called <a href="kernel/">OSDK</a> to streamline their workflows,
+and (3) choose between releasing their kernel modules as open source
+or keeping them proprietary,
+thanks to the flexibility offered by <a href="kernel/../">MPL</a>.</p>
+</li>
+</ul>
+<p>While the journey towards a production-grade OS kernel can be challenging,
+we are steadfastly progressing towards our goal.
+Currently, Asterinas only supports x86-64 VMs.
+However, <a href="kernel/roadmap.html">our aim for 2024</a> is
+to make Asterinas production-ready on x86-64
+for both bare-metal and VM environments.</p>
+<h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
+<p>Get yourself an x86-64 Linux machine with Docker installed.
+Follow the three simple steps below to get Asterinas up and running.</p>
+<ol>
+<li>Download the latest source code.</li>
+</ol>
+<pre><code class="language-bash">git clone https://github.com/asterinas/asterinas
+</code></pre>
+<ol start="2">
+<li>Run a Docker container as the development environment.</li>
+</ol>
+<pre><code class="language-bash">docker run -it --privileged \
+               --network=host \
+               --device=/dev/kvm \
+               -v $(pwd)/asterinas:/root/asterinas \
+               asterinas/asterinas:0.15.2-20250722
+</code></pre>
+<ol start="3">
+<li>Inside the container, go to the project folder to build and run Asterinas.</li>
+</ol>
+<pre><code class="language-bash">make build
+make run
+</code></pre>
+<p>If everything goes well, Asterinas is now up and running inside a VM.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="advanced-build-and-test-instructions"><a class="header" href="#advanced-build-and-test-instructions">Advanced Build and Test Instructions</a></h1>
+<h2 id="user-mode-unit-tests"><a class="header" href="#user-mode-unit-tests">User-Mode Unit Tests</a></h2>
+<p>Asterinas consists of many crates,
+some of which do not require a VM environment
+and can be tested with the standard <code>cargo test</code>.
+They are listed in the root <code>Makefile</code>
+and can be tested together through the following Make command.</p>
+<pre><code class="language-bash">make test
+</code></pre>
+<p>To test an individual crate, enter the directory of the crate and invoke <code>cargo test</code>.</p>
+<h3 id="kernel-mode-unit-tests"><a class="header" href="#kernel-mode-unit-tests">Kernel-Mode Unit Tests</a></h3>
+<p>Many crates in Asterinas do require a VM environment to be tested.
+The unit tests for these crates are empowered by OSDK.</p>
+<pre><code class="language-bash">make ktest
+</code></pre>
+<p>To test an individual crate in kernel mode, enter the directory of the crate and invoke <code>cargo osdk test</code>.</p>
+<pre><code class="language-bash">cd asterinas/ostd
+cargo osdk test
+</code></pre>
+<h2 id="integration-test"><a class="header" href="#integration-test">Integration Test</a></h2>
+<h3 id="general-test"><a class="header" href="#general-test">General Test</a></h3>
+<p>The following command builds and runs the test binaries in <code>test/src/apps</code> directory on Asterinas.</p>
+<pre><code class="language-bash">make run AUTO_TEST=test
+</code></pre>
+<h3 id="syscall-test"><a class="header" href="#syscall-test">Syscall Test</a></h3>
+<p>The following command builds and runs the syscall test binaries on Asterinas.</p>
+<pre><code class="language-bash">make run AUTO_TEST=syscall
+</code></pre>
+<p>To run system call tests interactively, start an instance of Asterinas with the system call tests built and installed.</p>
+<pre><code class="language-bash">make run BUILD_SYSCALL_TEST=1
+</code></pre>
+<p>Then, in the interactive shell, run the following script to start the syscall tests.</p>
+<pre><code class="language-bash">/opt/syscall_test/run_syscall_test.sh
+</code></pre>
+<h2 id="debug"><a class="header" href="#debug">Debug</a></h2>
+<h3 id="using-gdb-to-debug"><a class="header" href="#using-gdb-to-debug">Using GDB to Debug</a></h3>
+<p>To debug Asterinas via <a href="https://qemu-project.gitlab.io/qemu/system/gdb.html">QEMU GDB support</a>,
+you can compile Asterinas in the debug profile,
+start an Asterinas instance and run the GDB interactive shell in another terminal.</p>
+<p>Start a GDB-enabled VM of Asterinas with OSDK and wait for debugging connection:</p>
+<pre><code class="language-bash">make gdb_server
+</code></pre>
+<p>The server will listen at the default address specified in <code>Makefile</code>, i.e., a local TCP port <code>:1234</code>.
+Change the address in <code>Makefile</code> for your convenience,
+and check <code>cargo osdk run -h</code> for more details about the address.</p>
+<p>Two options are provided to interact with the debug server.</p>
+<ul>
+<li>
+<p>A GDB client: start a GDB client in another terminal.</p>
+<pre><code class="language-bash">make gdb_client
+</code></pre>
+</li>
+<li>
+<p>VS Code: <a href="https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb">CodeLLDB</a> extension is required.
+After starting a debug server with OSDK from the shell with <code>make gdb_server</code>,
+a temporary <code>launch.json</code> is generated under <code>.vscode</code>.
+Your previous launch configs will be restored after the server is down.
+Press <code>F5</code>(Run and Debug) to start a debug session via VS Code.
+Click <code>Continue</code>(or, press <code>F5</code>) at the first break to resume the paused server instance,
+then it will continue until reaching your first breakpoint.</p>
+</li>
+</ul>
+<p>Note that if debugging with KVM enabled, you must use hardware assisted breakpoints. See "hbreak" in
+<a href="https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_28.html">the GDB manual</a> for details.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="intel-tdx"><a class="header" href="#intel-tdx">Intel TDX</a></h1>
+<p>Asterinas can serve as a secure guest OS for Intel TDX-protected virtual machines (VMs).
+This documentation describes
+how Asterinas can be run and tested easily on a TDX-enabled Intel server.</p>
+<p>Intel TDX (Trust Domain Extensions) is a Trusted Execution Environment (TEE) technology
+that enhances VM security
+by creating isolated, hardware-enforced trust domains
+with encrypted memory, secure initialization, and attestation mechanisms.
+For more information about Intel TDX, jump to the last section.</p>
+<h2 id="why-choose-asterinas-for-intel-tdx"><a class="header" href="#why-choose-asterinas-for-intel-tdx">Why choose Asterinas for Intel TDX</a></h2>
+<p>VM TEEs such as Intel TDX deserve a more secure option for its guest OS than Linux.
+Linux,
+with its inherent memory safety issues and large Trusted Computing Base (TCB),
+has long suffered from security vulnerabilities due to memory safety bugs.
+Additionally,
+when Linux is used as the guest kernel inside a VM TEE,
+it must process untrusted inputs
+(over 1500 instances in Linux, per Intel's estimation)
+from the host (via hypercalls, MMIO, and etc.).
+These untrusted inputs create new attack surfaces
+that can be exploited through memory safety vulnerabilities,
+known as Iago attacks.</p>
+<p>Asterinas offers greater memory safety than Linux,
+particularly against Iago attacks.
+Thanks to its framekernel architecture,
+the memory safety of Asterinas relies solely on the Asterinas Framework,
+excluding the safe device drivers built on top of the Asterinas Framework
+that may handle untrusted inputs from the host.
+For more information, see <a href="https://www.youtube.com/watch?v=3AQ5lpXujGo">our talk on OC3'24</a>.</p>
+<h2 id="prepare-the-intel-tdx-environment"><a class="header" href="#prepare-the-intel-tdx-environment">Prepare the Intel TDX Environment</a></h2>
+<p>Please make sure your server supports Intel TDX.</p>
+<p>See <a href="https://github.com/canonical/tdx/tree/noble-24.04?tab=readme-ov-file#4-setup-host-os">this guide</a>
+or other materials to enable Intel TDX in host OS.</p>
+<p>To verify the TDX host status,
+you can type:</p>
+<pre><code class="language-bash">dmesg | grep "TDX module initialized"
+</code></pre>
+<p>The following result is an example:</p>
+<pre><code class="language-bash">[   20.507296] tdx: TDX module initialized.
+</code></pre>
+<p><code>TDX module initialized</code> means TDX module is loaded successfully.</p>
+<h2 id="build-and-run-asterinas"><a class="header" href="#build-and-run-asterinas">Build and run Asterinas</a></h2>
+<ol>
+<li>Download the latest source code.</li>
+</ol>
+<pre><code class="language-bash">git clone https://github.com/asterinas/asterinas
+</code></pre>
+<ol start="2">
+<li>Run a Docker container as the development environment.</li>
+</ol>
+<pre><code class="language-bash">docker run -it --privileged --network=host --device=/dev/kvm -v $(pwd)/asterinas:/root/asterinas asterinas/asterinas:0.15.2-20250722-tdx
+</code></pre>
+<ol start="3">
+<li>Inside the container,
+go to the project folder to build and run Asterinas.</li>
+</ol>
+<pre><code class="language-bash">make run INTEL_TDX=1
+</code></pre>
+<p>If everything goes well,
+Asterinas is now up and running inside a TD.</p>
+<h2 id="using-gdb-to-debug-1"><a class="header" href="#using-gdb-to-debug-1">Using GDB to Debug</a></h2>
+<p>A Trust Domain (TD) is debuggable if its <code>ATTRIBUTES.DEBUG</code> bit is 1.
+In this mode, the host VMM can use Intel TDX module functions
+to read and modify TD VCPU state and TD private memory,
+which are not accessible when the TD is non-debuggable.</p>
+<p>Start Asterinas in a GDB-enabled TD and wait for debugging connection:</p>
+<pre><code class="language-bash">make gdb_server INTEL_TDX=1
+</code></pre>
+<p>Behind the scene, this command adds <code>debug=on</code> configuration to the QEMU parameters
+to enable TD debuggable mode.</p>
+<p>The server will listen at the default address specified in <code>Makefile</code>,
+i.e., a local TCP port <code>:1234</code>.</p>
+<p>Start a GDB client in another terminal:</p>
+<pre><code class="language-bash">make gdb_client INTEL_TDX=1
+</code></pre>
+<p>Note that you must use hardware assisted breakpoints
+because KVM is enabled when debugging a TD.</p>
+<h2 id="about-intel-tdx"><a class="header" href="#about-intel-tdx">About Intel TDX</a></h2>
+<p>Intel® Trust Domain Extensions (Intel® TDX)
+is Intel's newest confidential computing technology.
+This hardware-based trusted execution environment (TEE)
+facilitates the deployment of trust domains (TD),
+which are hardware-isolated virtual machines (VM) designed to
+protect sensitive data and applications from unauthorized access.</p>
+<p>A CPU-measured Intel TDX module enables Intel TDX.
+This software module runs in a new CPU Secure Arbitration Mode (SEAM)
+as a peer virtual machine manager (VMM),
+and supports TD entry and exit
+using the existing virtualization infrastructure.
+The module is hosted in a reserved memory space
+identified by the SEAM Range Register (SEAMRR).</p>
+<p>Intel TDX uses hardware extensions for managing and encrypting memory
+and protects both the confidentiality and integrity
+of the TD CPU state from non-SEAM mode.</p>
+<p>Intel TDX uses architectural elements such as SEAM,
+a shared bit in Guest Physical Address (GPA),
+secure Extended Page Table (EPT),
+physical-address-metadata table,
+Intel® Total Memory Encryption – Multi-Key (Intel® TME-MK),
+and remote attestation.</p>
+<p>Intel TDX ensures data integrity, confidentiality, and authenticity,
+which empowers engineers and tech professionals
+to create and maintain secure systems,
+enhancing trust in virtualized environments.</p>
+<p>For more information,
+please refer to <a href="https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/overview.html">Intel TDX website</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-framekernel-architecture"><a class="header" href="#the-framekernel-architecture">The Framekernel Architecture</a></h1>
+<h2 id="framekernel-what-and-why"><a class="header" href="#framekernel-what-and-why">Framekernel: What and Why</a></h2>
+<blockquote>
+<p>The security of a microkernel, the speed of a monolithic kernel.</p>
+</blockquote>
+<p>Asterinas introduces a novel OS architecture called <em>framekernel</em>,
+which unleashes the full power of Rust
+to bring the best of both monolithic kernels and microkernels.</p>
+<p>Within the framekernel architecture,
+the entire OS resides in the same address space (like a monolithic kernel)
+and is required to be written in Rust.
+However, there's a twist---the kernel is partitioned in two halves:
+the OS Framework (akin to a microkernel)
+and the OS Services.
+Only the OS Framework is allowed to use <em>unsafe Rust</em>,
+while the OS Services must be written exclusively in <em>safe Rust</em>.</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Unsafe Rust</th><th>Responsibilities</th><th>Code Sizes</th></tr></thead><tbody>
+<tr><td>OS Framework</td><td>Allowed</td><td>Encapsulate low-level unsafe code within high-level safe APIs</td><td>Small</td></tr>
+<tr><td>OS Services</td><td>Not allowed</td><td>Implement OS functionalities, e.g., system calls, file systems, device drivers</td><td>Large</td></tr>
+</tbody></table>
+</div>
+<p>As a result,
+the memory safety of the kernel can be reduced to that of the OS Framework,
+thus minimizing the Trusted Computing Base (TCB)
+associated with the kernel's memory safety.
+On the other hand,
+the single address space allows different parts of the kernel
+to communicate in the most efficient means,
+e.g., function calls and shared memory.
+Thanks to the framekernel architecture,
+Asterinas can offer both exceptional performance and enhanced safety.</p>
+<p><img src="kernel/../images/a_comparison_between_os_archs.svg" alt="A comparison between different OS architectures" /></p>
+<h2 id="requirements-for-the-os-framework"><a class="header" href="#requirements-for-the-os-framework">Requirements for the OS Framework</a></h2>
+<p>While the concept of framekernel is straightforward,
+the design and implementation of the required OS framework present challenges.
+It must concurrently fulfill four criteria.</p>
+<p><img src="kernel/../images/four_requirements_for_os_framework.svg" alt="The four requirements for the OS framework" /></p>
+<ul>
+<li><strong>Soundness.</strong>
+The safe APIs of the framework are considered sound
+if no <a href="https://doc.rust-lang.org/reference/behavior-considered-undefined.html#behavior-considered-undefined">undefined behaviors</a> shall be triggered
+by whatever safe Rust code that a programmer may write using the APIs</li>
+</ul>
+<ul>
+<li>as long as the code is verified by the Rust toolchain.
+Soundness ensures that the OS framework,
+in conjunction with the Rust toolchain,
+bears the full responsibility for the kernel's memory safety.</li>
+</ul>
+<ul>
+<li>
+<p><strong>Expressiveness.</strong>
+The framework should empower developers
+to implement a substantial range of OS functionalities
+in safe Rust using the APIs.
+It is especially important that
+the framework enables writing device drivers in safe Rust,
+considering that device drivers comprise the bulk of the code
+in a fully-fleged OS kernel (like Linux).</p>
+</li>
+<li>
+<p><strong>Minimalism.</strong>
+As the TCB for memory safety,
+the framework should be kept as small as possible.
+No functionality should be implemented inside the framework
+if doing it outside is possible.</p>
+</li>
+<li>
+<p><strong>Efficiency.</strong>
+The safe API provided by the framework is only allowed
+to introduce minimal overheads.
+Ideally, these APIs should be realized
+as <a href="https://monomorph.is/posts/zero-cost-abstractions/">zero-cost abstractions</a>.</p>
+</li>
+</ul>
+<p>Fortunately, our efforts
+to design and implement an OS framework meeting these standards
+have borne fruit in the form of the <a href="kernel/../ostd/">Asterinas OSTD</a>.
+Using this framework as a foundation,
+we have developed the Asterinas Kernel;
+this framework also enables others to create their own framekernels,
+with different goals and tradeoffs.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linux-compatibility"><a class="header" href="#linux-compatibility">Linux Compatibility</a></h1>
+<blockquote>
+<p>"We don't break user space."</p>
+<p>--- Linus Torvalds</p>
+</blockquote>
+<p>Asterinas is dedicated to maintaining compatibility with the Linux ABI,
+ensuring that applications and administrative tools
+designed for Linux can seamlessly operate within Asterinas.
+While we prioritize compatibility,
+it is important to note that Asterinas does not,
+nor will it in the future,
+support the loading of Linux kernel modules.</p>
+<h2 id="system-calls"><a class="header" href="#system-calls">System Calls</a></h2>
+<p>At the time of writing,
+Asterinas implements 214 out of the 336 system calls
+provided by Linux on x86-64 architecture.</p>
+<div class="table-wrapper"><table><thead><tr><th>Numbers</th><th>Names</th><th>Is Implemented</th></tr></thead><tbody>
+<tr><td>0</td><td>read</td><td>✅</td></tr>
+<tr><td>1</td><td>write</td><td>✅</td></tr>
+<tr><td>2</td><td>open</td><td>✅</td></tr>
+<tr><td>3</td><td>close</td><td>✅</td></tr>
+<tr><td>4</td><td>stat</td><td>✅</td></tr>
+<tr><td>5</td><td>fstat</td><td>✅</td></tr>
+<tr><td>6</td><td>lstat</td><td>✅</td></tr>
+<tr><td>7</td><td>poll</td><td>✅</td></tr>
+<tr><td>8</td><td>lseek</td><td>✅</td></tr>
+<tr><td>9</td><td>mmap</td><td>✅</td></tr>
+<tr><td>10</td><td>mprotect</td><td>✅</td></tr>
+<tr><td>11</td><td>munmap</td><td>✅</td></tr>
+<tr><td>12</td><td>brk</td><td>✅</td></tr>
+<tr><td>13</td><td>rt_sigaction</td><td>✅</td></tr>
+<tr><td>14</td><td>rt_sigprocmask</td><td>✅</td></tr>
+<tr><td>15</td><td>rt_sigreturn</td><td>✅</td></tr>
+<tr><td>16</td><td>ioctl</td><td>✅</td></tr>
+<tr><td>17</td><td>pread64</td><td>✅</td></tr>
+<tr><td>18</td><td>pwrite64</td><td>✅</td></tr>
+<tr><td>19</td><td>readv</td><td>✅</td></tr>
+<tr><td>20</td><td>writev</td><td>✅</td></tr>
+<tr><td>21</td><td>access</td><td>✅</td></tr>
+<tr><td>22</td><td>pipe</td><td>✅</td></tr>
+<tr><td>23</td><td>select</td><td>✅</td></tr>
+<tr><td>24</td><td>sched_yield</td><td>✅</td></tr>
+<tr><td>25</td><td>mremap</td><td>✅</td></tr>
+<tr><td>26</td><td>msync</td><td>✅</td></tr>
+<tr><td>27</td><td>mincore</td><td>❌</td></tr>
+<tr><td>28</td><td>madvise</td><td>✅</td></tr>
+<tr><td>29</td><td>shmget</td><td>❌</td></tr>
+<tr><td>30</td><td>shmat</td><td>❌</td></tr>
+<tr><td>31</td><td>shmctl</td><td>❌</td></tr>
+<tr><td>32</td><td>dup</td><td>✅</td></tr>
+<tr><td>33</td><td>dup2</td><td>✅</td></tr>
+<tr><td>34</td><td>pause</td><td>✅</td></tr>
+<tr><td>35</td><td>nanosleep</td><td>✅</td></tr>
+<tr><td>36</td><td>getitimer</td><td>✅</td></tr>
+<tr><td>37</td><td>alarm</td><td>✅</td></tr>
+<tr><td>38</td><td>setitimer</td><td>✅</td></tr>
+<tr><td>39</td><td>getpid</td><td>✅</td></tr>
+<tr><td>40</td><td>sendfile</td><td>✅</td></tr>
+<tr><td>41</td><td>socket</td><td>✅</td></tr>
+<tr><td>42</td><td>connect</td><td>✅</td></tr>
+<tr><td>43</td><td>accept</td><td>✅</td></tr>
+<tr><td>44</td><td>sendto</td><td>✅</td></tr>
+<tr><td>45</td><td>recvfrom</td><td>✅</td></tr>
+<tr><td>46</td><td>sendmsg</td><td>✅</td></tr>
+<tr><td>47</td><td>recvmsg</td><td>✅</td></tr>
+<tr><td>48</td><td>shutdown</td><td>✅</td></tr>
+<tr><td>49</td><td>bind</td><td>✅</td></tr>
+<tr><td>50</td><td>listen</td><td>✅</td></tr>
+<tr><td>51</td><td>getsockname</td><td>✅</td></tr>
+<tr><td>52</td><td>getpeername</td><td>✅</td></tr>
+<tr><td>53</td><td>socketpair</td><td>✅</td></tr>
+<tr><td>54</td><td>setsockopt</td><td>✅</td></tr>
+<tr><td>55</td><td>getsockopt</td><td>✅</td></tr>
+<tr><td>56</td><td>clone</td><td>✅</td></tr>
+<tr><td>57</td><td>fork</td><td>✅</td></tr>
+<tr><td>58</td><td>vfork</td><td>❌</td></tr>
+<tr><td>59</td><td>execve</td><td>✅</td></tr>
+<tr><td>60</td><td>exit</td><td>✅</td></tr>
+<tr><td>61</td><td>wait4</td><td>✅</td></tr>
+<tr><td>62</td><td>kill</td><td>✅</td></tr>
+<tr><td>63</td><td>uname</td><td>✅</td></tr>
+<tr><td>64</td><td>semget</td><td>✅</td></tr>
+<tr><td>65</td><td>semop</td><td>✅</td></tr>
+<tr><td>66</td><td>semctl</td><td>✅</td></tr>
+<tr><td>67</td><td>shmdt</td><td>❌</td></tr>
+<tr><td>68</td><td>msgget</td><td>❌</td></tr>
+<tr><td>69</td><td>msgsnd</td><td>❌</td></tr>
+<tr><td>70</td><td>msgrcv</td><td>❌</td></tr>
+<tr><td>71</td><td>msgctl</td><td>❌</td></tr>
+<tr><td>72</td><td>fcntl</td><td>✅</td></tr>
+<tr><td>73</td><td>flock</td><td>✅</td></tr>
+<tr><td>74</td><td>fsync</td><td>✅</td></tr>
+<tr><td>75</td><td>fdatasync</td><td>✅</td></tr>
+<tr><td>76</td><td>truncate</td><td>✅</td></tr>
+<tr><td>77</td><td>ftruncate</td><td>✅</td></tr>
+<tr><td>78</td><td>getdents</td><td>✅</td></tr>
+<tr><td>79</td><td>getcwd</td><td>✅</td></tr>
+<tr><td>80</td><td>chdir</td><td>✅</td></tr>
+<tr><td>81</td><td>fchdir</td><td>✅</td></tr>
+<tr><td>82</td><td>rename</td><td>✅</td></tr>
+<tr><td>83</td><td>mkdir</td><td>✅</td></tr>
+<tr><td>84</td><td>rmdir</td><td>✅</td></tr>
+<tr><td>85</td><td>creat</td><td>✅</td></tr>
+<tr><td>86</td><td>link</td><td>✅</td></tr>
+<tr><td>87</td><td>unlink</td><td>✅</td></tr>
+<tr><td>88</td><td>symlink</td><td>✅</td></tr>
+<tr><td>89</td><td>readlink</td><td>✅</td></tr>
+<tr><td>90</td><td>chmod</td><td>✅</td></tr>
+<tr><td>91</td><td>fchmod</td><td>✅</td></tr>
+<tr><td>92</td><td>chown</td><td>✅</td></tr>
+<tr><td>93</td><td>fchown</td><td>✅</td></tr>
+<tr><td>94</td><td>lchown</td><td>✅</td></tr>
+<tr><td>95</td><td>umask</td><td>✅</td></tr>
+<tr><td>96</td><td>gettimeofday</td><td>✅</td></tr>
+<tr><td>97</td><td>getrlimit</td><td>✅</td></tr>
+<tr><td>98</td><td>getrusage</td><td>✅</td></tr>
+<tr><td>99</td><td>sysinfo</td><td>✅</td></tr>
+<tr><td>100</td><td>times</td><td>❌</td></tr>
+<tr><td>101</td><td>ptrace</td><td>❌</td></tr>
+<tr><td>102</td><td>getuid</td><td>✅</td></tr>
+<tr><td>103</td><td>syslog</td><td>❌</td></tr>
+<tr><td>104</td><td>getgid</td><td>✅</td></tr>
+<tr><td>105</td><td>setuid</td><td>✅</td></tr>
+<tr><td>106</td><td>setgid</td><td>✅</td></tr>
+<tr><td>107</td><td>geteuid</td><td>✅</td></tr>
+<tr><td>108</td><td>getegid</td><td>✅</td></tr>
+<tr><td>109</td><td>setpgid</td><td>✅</td></tr>
+<tr><td>110</td><td>getppid</td><td>✅</td></tr>
+<tr><td>111</td><td>getpgrp</td><td>✅</td></tr>
+<tr><td>112</td><td>setsid</td><td>✅</td></tr>
+<tr><td>113</td><td>setreuid</td><td>✅</td></tr>
+<tr><td>114</td><td>setregid</td><td>✅</td></tr>
+<tr><td>115</td><td>getgroups</td><td>✅</td></tr>
+<tr><td>116</td><td>setgroups</td><td>✅</td></tr>
+<tr><td>117</td><td>setresuid</td><td>✅</td></tr>
+<tr><td>118</td><td>getresuid</td><td>✅</td></tr>
+<tr><td>119</td><td>setresgid</td><td>✅</td></tr>
+<tr><td>120</td><td>getresgid</td><td>✅</td></tr>
+<tr><td>121</td><td>getpgid</td><td>✅</td></tr>
+<tr><td>122</td><td>setfsuid</td><td>✅</td></tr>
+<tr><td>123</td><td>setfsgid</td><td>✅</td></tr>
+<tr><td>124</td><td>getsid</td><td>✅</td></tr>
+<tr><td>125</td><td>capget</td><td>✅</td></tr>
+<tr><td>126</td><td>capset</td><td>✅</td></tr>
+<tr><td>127</td><td>rt_sigpending</td><td>✅</td></tr>
+<tr><td>128</td><td>rt_sigtimedwait</td><td>❌</td></tr>
+<tr><td>129</td><td>rt_sigqueueinfo</td><td>❌</td></tr>
+<tr><td>130</td><td>rt_sigsuspend</td><td>✅</td></tr>
+<tr><td>131</td><td>sigaltstack</td><td>✅</td></tr>
+<tr><td>132</td><td>utime</td><td>✅</td></tr>
+<tr><td>133</td><td>mknod</td><td>✅</td></tr>
+<tr><td>134</td><td>uselib</td><td>❌</td></tr>
+<tr><td>135</td><td>personality</td><td>❌</td></tr>
+<tr><td>136</td><td>ustat</td><td>❌</td></tr>
+<tr><td>137</td><td>statfs</td><td>✅</td></tr>
+<tr><td>138</td><td>fstatfs</td><td>✅</td></tr>
+<tr><td>139</td><td>sysfs</td><td>❌</td></tr>
+<tr><td>140</td><td>getpriority</td><td>✅</td></tr>
+<tr><td>141</td><td>setpriority</td><td>✅</td></tr>
+<tr><td>142</td><td>sched_setparam</td><td>✅</td></tr>
+<tr><td>143</td><td>sched_getparam</td><td>✅</td></tr>
+<tr><td>144</td><td>sched_setscheduler</td><td>✅</td></tr>
+<tr><td>145</td><td>sched_getscheduler</td><td>✅</td></tr>
+<tr><td>146</td><td>sched_get_priority_max</td><td>✅</td></tr>
+<tr><td>147</td><td>sched_get_priority_min</td><td>✅</td></tr>
+<tr><td>148</td><td>sched_rr_get_interval</td><td>❌</td></tr>
+<tr><td>149</td><td>mlock</td><td>❌</td></tr>
+<tr><td>150</td><td>munlock</td><td>❌</td></tr>
+<tr><td>151</td><td>mlockall</td><td>❌</td></tr>
+<tr><td>152</td><td>munlockall</td><td>❌</td></tr>
+<tr><td>153</td><td>vhangup</td><td>❌</td></tr>
+<tr><td>154</td><td>modify_ldt</td><td>❌</td></tr>
+<tr><td>155</td><td>pivot_root</td><td>❌</td></tr>
+<tr><td>156</td><td>_sysctl</td><td>❌</td></tr>
+<tr><td>157</td><td>prctl</td><td>✅</td></tr>
+<tr><td>158</td><td>arch_prctl</td><td>✅</td></tr>
+<tr><td>159</td><td>adjtimex</td><td>❌</td></tr>
+<tr><td>160</td><td>setrlimit</td><td>✅</td></tr>
+<tr><td>161</td><td>chroot</td><td>✅</td></tr>
+<tr><td>162</td><td>sync</td><td>✅</td></tr>
+<tr><td>163</td><td>acct</td><td>❌</td></tr>
+<tr><td>164</td><td>settimeofday</td><td>❌</td></tr>
+<tr><td>165</td><td>mount</td><td>✅</td></tr>
+<tr><td>166</td><td>umount2</td><td>✅</td></tr>
+<tr><td>167</td><td>swapon</td><td>❌</td></tr>
+<tr><td>168</td><td>swapoff</td><td>❌</td></tr>
+<tr><td>169</td><td>reboot</td><td>❌</td></tr>
+<tr><td>170</td><td>sethostname</td><td>❌</td></tr>
+<tr><td>171</td><td>setdomainname</td><td>❌</td></tr>
+<tr><td>172</td><td>iopl</td><td>❌</td></tr>
+<tr><td>173</td><td>ioperm</td><td>❌</td></tr>
+<tr><td>174</td><td>create_module</td><td>❌</td></tr>
+<tr><td>175</td><td>init_module</td><td>❌</td></tr>
+<tr><td>176</td><td>delete_module</td><td>❌</td></tr>
+<tr><td>177</td><td>get_kernel_syms</td><td>❌</td></tr>
+<tr><td>178</td><td>query_module</td><td>❌</td></tr>
+<tr><td>179</td><td>quotactl</td><td>❌</td></tr>
+<tr><td>180</td><td>nfsservctl</td><td>❌</td></tr>
+<tr><td>181</td><td>getpmsg</td><td>❌</td></tr>
+<tr><td>182</td><td>putpmsg</td><td>❌</td></tr>
+<tr><td>183</td><td>afs_syscall</td><td>❌</td></tr>
+<tr><td>184</td><td>tuxcall</td><td>❌</td></tr>
+<tr><td>185</td><td>security</td><td>❌</td></tr>
+<tr><td>186</td><td>gettid</td><td>✅</td></tr>
+<tr><td>187</td><td>readahead</td><td>❌</td></tr>
+<tr><td>188</td><td>setxattr</td><td>✅</td></tr>
+<tr><td>189</td><td>lsetxattr</td><td>✅</td></tr>
+<tr><td>190</td><td>fsetxattr</td><td>✅</td></tr>
+<tr><td>191</td><td>getxattr</td><td>✅</td></tr>
+<tr><td>192</td><td>lgetxattr</td><td>✅</td></tr>
+<tr><td>193</td><td>fgetxattr</td><td>✅</td></tr>
+<tr><td>194</td><td>listxattr</td><td>✅</td></tr>
+<tr><td>195</td><td>llistxattr</td><td>✅</td></tr>
+<tr><td>196</td><td>flistxattr</td><td>✅</td></tr>
+<tr><td>197</td><td>removexattr</td><td>✅</td></tr>
+<tr><td>198</td><td>lremovexattr</td><td>✅</td></tr>
+<tr><td>199</td><td>fremovexattr</td><td>✅</td></tr>
+<tr><td>200</td><td>tkill</td><td>❌</td></tr>
+<tr><td>201</td><td>time</td><td>✅</td></tr>
+<tr><td>202</td><td>futex</td><td>✅</td></tr>
+<tr><td>203</td><td>sched_setaffinity</td><td>✅</td></tr>
+<tr><td>204</td><td>sched_getaffinity</td><td>✅</td></tr>
+<tr><td>205</td><td>set_thread_area</td><td>❌</td></tr>
+<tr><td>206</td><td>io_setup</td><td>❌</td></tr>
+<tr><td>207</td><td>io_destroy</td><td>❌</td></tr>
+<tr><td>208</td><td>io_getevents</td><td>❌</td></tr>
+<tr><td>209</td><td>io_submit</td><td>❌</td></tr>
+<tr><td>210</td><td>io_cancel</td><td>❌</td></tr>
+<tr><td>211</td><td>get_thread_area</td><td>❌</td></tr>
+<tr><td>212</td><td>lookup_dcookie</td><td>❌</td></tr>
+<tr><td>213</td><td>epoll_create</td><td>✅</td></tr>
+<tr><td>214</td><td>epoll_ctl_old</td><td>❌</td></tr>
+<tr><td>215</td><td>epoll_wait_old</td><td>❌</td></tr>
+<tr><td>216</td><td>remap_file_pages</td><td>❌</td></tr>
+<tr><td>217</td><td>getdents64</td><td>✅</td></tr>
+<tr><td>218</td><td>set_tid_address</td><td>✅</td></tr>
+<tr><td>219</td><td>restart_syscall</td><td>❌</td></tr>
+<tr><td>220</td><td>semtimedop</td><td>✅</td></tr>
+<tr><td>221</td><td>fadvise64</td><td>✅</td></tr>
+<tr><td>222</td><td>timer_create</td><td>✅</td></tr>
+<tr><td>223</td><td>timer_settime</td><td>✅</td></tr>
+<tr><td>224</td><td>timer_gettime</td><td>✅</td></tr>
+<tr><td>225</td><td>timer_getoverrun</td><td>❌</td></tr>
+<tr><td>226</td><td>timer_delete</td><td>✅</td></tr>
+<tr><td>227</td><td>clock_settime</td><td>❌</td></tr>
+<tr><td>228</td><td>clock_gettime</td><td>✅</td></tr>
+<tr><td>229</td><td>clock_getres</td><td>❌</td></tr>
+<tr><td>230</td><td>clock_nanosleep</td><td>✅</td></tr>
+<tr><td>231</td><td>exit_group</td><td>✅</td></tr>
+<tr><td>232</td><td>epoll_wait</td><td>✅</td></tr>
+<tr><td>233</td><td>epoll_ctl</td><td>✅</td></tr>
+<tr><td>234</td><td>tgkill</td><td>✅</td></tr>
+<tr><td>235</td><td>utimes</td><td>✅</td></tr>
+<tr><td>236</td><td>vserver</td><td>❌</td></tr>
+<tr><td>237</td><td>mbind</td><td>❌</td></tr>
+<tr><td>238</td><td>set_mempolicy</td><td>❌</td></tr>
+<tr><td>239</td><td>get_mempolicy</td><td>❌</td></tr>
+<tr><td>240</td><td>mq_open</td><td>❌</td></tr>
+<tr><td>241</td><td>mq_unlink</td><td>❌</td></tr>
+<tr><td>242</td><td>mq_timedsend</td><td>❌</td></tr>
+<tr><td>243</td><td>mq_timedreceive</td><td>❌</td></tr>
+<tr><td>244</td><td>mq_notify</td><td>❌</td></tr>
+<tr><td>245</td><td>mq_getsetattr</td><td>❌</td></tr>
+<tr><td>246</td><td>kexec_load</td><td>❌</td></tr>
+<tr><td>247</td><td>waitid</td><td>✅</td></tr>
+<tr><td>248</td><td>add_key</td><td>❌</td></tr>
+<tr><td>249</td><td>request_key</td><td>❌</td></tr>
+<tr><td>250</td><td>keyctl</td><td>❌</td></tr>
+<tr><td>251</td><td>ioprio_set</td><td>✅</td></tr>
+<tr><td>252</td><td>ioprio_get</td><td>✅</td></tr>
+<tr><td>253</td><td>inotify_init</td><td>❌</td></tr>
+<tr><td>254</td><td>inotify_add_watch</td><td>❌</td></tr>
+<tr><td>255</td><td>inotify_rm_watch</td><td>❌</td></tr>
+<tr><td>256</td><td>migrate_pages</td><td>❌</td></tr>
+<tr><td>257</td><td>openat</td><td>✅</td></tr>
+<tr><td>258</td><td>mkdirat</td><td>✅</td></tr>
+<tr><td>259</td><td>mknodat</td><td>✅</td></tr>
+<tr><td>260</td><td>fchownat</td><td>✅</td></tr>
+<tr><td>261</td><td>futimesat</td><td>✅</td></tr>
+<tr><td>262</td><td>newfstatat</td><td>✅</td></tr>
+<tr><td>263</td><td>unlinkat</td><td>✅</td></tr>
+<tr><td>264</td><td>renameat</td><td>✅</td></tr>
+<tr><td>265</td><td>linkat</td><td>✅</td></tr>
+<tr><td>266</td><td>symlinkat</td><td>✅</td></tr>
+<tr><td>267</td><td>readlinkat</td><td>✅</td></tr>
+<tr><td>268</td><td>fchmodat</td><td>✅</td></tr>
+<tr><td>269</td><td>faccessat</td><td>✅</td></tr>
+<tr><td>270</td><td>pselect6</td><td>✅</td></tr>
+<tr><td>271</td><td>ppoll</td><td>✅</td></tr>
+<tr><td>272</td><td>unshare</td><td>❌</td></tr>
+<tr><td>273</td><td>set_robust_list</td><td>✅</td></tr>
+<tr><td>274</td><td>get_robust_list</td><td>❌</td></tr>
+<tr><td>275</td><td>splice</td><td>❌</td></tr>
+<tr><td>276</td><td>tee</td><td>❌</td></tr>
+<tr><td>277</td><td>sync_file_range</td><td>❌</td></tr>
+<tr><td>278</td><td>vmsplice</td><td>❌</td></tr>
+<tr><td>279</td><td>move_pages</td><td>❌</td></tr>
+<tr><td>280</td><td>utimensat</td><td>✅</td></tr>
+<tr><td>281</td><td>epoll_pwait</td><td>✅</td></tr>
+<tr><td>282</td><td>signalfd</td><td>✅</td></tr>
+<tr><td>283</td><td>timerfd_create</td><td>✅</td></tr>
+<tr><td>284</td><td>eventfd</td><td>✅</td></tr>
+<tr><td>285</td><td>fallocate</td><td>✅</td></tr>
+<tr><td>286</td><td>timerfd_settime</td><td>✅</td></tr>
+<tr><td>287</td><td>timerfd_gettime</td><td>✅</td></tr>
+<tr><td>288</td><td>accept4</td><td>✅</td></tr>
+<tr><td>289</td><td>signalfd4</td><td>✅</td></tr>
+<tr><td>290</td><td>eventfd2</td><td>✅</td></tr>
+<tr><td>291</td><td>epoll_create1</td><td>✅</td></tr>
+<tr><td>292</td><td>dup3</td><td>✅</td></tr>
+<tr><td>293</td><td>pipe2</td><td>✅</td></tr>
+<tr><td>294</td><td>inotify_init1</td><td>❌</td></tr>
+<tr><td>295</td><td>preadv</td><td>✅</td></tr>
+<tr><td>296</td><td>pwritev</td><td>✅</td></tr>
+<tr><td>297</td><td>rt_tgsigqueueinfo</td><td>❌</td></tr>
+<tr><td>298</td><td>perf_event_open</td><td>❌</td></tr>
+<tr><td>299</td><td>recvmmsg</td><td>❌</td></tr>
+<tr><td>300</td><td>fanotify_init</td><td>❌</td></tr>
+<tr><td>301</td><td>fanotify_mark</td><td>❌</td></tr>
+<tr><td>302</td><td>prlimit64</td><td>✅</td></tr>
+<tr><td>303</td><td>name_to_handle_at</td><td>❌</td></tr>
+<tr><td>304</td><td>open_by_handle_at</td><td>❌</td></tr>
+<tr><td>305</td><td>clock_adjtime</td><td>❌</td></tr>
+<tr><td>306</td><td>syncfs</td><td>❌</td></tr>
+<tr><td>307</td><td>sendmmsg</td><td>❌</td></tr>
+<tr><td>308</td><td>setns</td><td>❌</td></tr>
+<tr><td>309</td><td>getcpu</td><td>✅</td></tr>
+<tr><td>310</td><td>process_vm_readv</td><td>❌</td></tr>
+<tr><td>311</td><td>process_vm_writev</td><td>❌</td></tr>
+<tr><td>312</td><td>kcmp</td><td>❌</td></tr>
+<tr><td>313</td><td>finit_module</td><td>❌</td></tr>
+<tr><td>314</td><td>sched_setattr</td><td>✅</td></tr>
+<tr><td>315</td><td>sched_getattr</td><td>✅</td></tr>
+<tr><td>318</td><td>getrandom</td><td>✅</td></tr>
+<tr><td>322</td><td>execveat</td><td>✅</td></tr>
+<tr><td>327</td><td>preadv2</td><td>✅</td></tr>
+<tr><td>328</td><td>pwritev2</td><td>✅</td></tr>
+<tr><td>332</td><td>statx</td><td>✅</td></tr>
+<tr><td>434</td><td>pidfd_open</td><td>✅</td></tr>
+<tr><td>435</td><td>clone3</td><td>✅</td></tr>
+<tr><td>436</td><td>close_range</td><td>✅</td></tr>
+<tr><td>439</td><td>faccessat2</td><td>✅</td></tr>
+<tr><td>441</td><td>epoll_pwait2</td><td>✅</td></tr>
+</tbody></table>
+</div>
+<h2 id="file-systems"><a class="header" href="#file-systems">File Systems</a></h2>
+<p>Here is the list of supported file systems:</p>
+<ul>
+<li>Devfs</li>
+<li>Devpts</li>
+<li>Ext2</li>
+<li>Procfs</li>
+<li>Ramfs</li>
+</ul>
+<h2 id="sockets"><a class="header" href="#sockets">Sockets</a></h2>
+<p>Here is the list of supported socket types:</p>
+<ul>
+<li>TCP sockets over IPv4</li>
+<li>UDP sockets over IPv4</li>
+<li>Unix sockets</li>
+</ul>
+<h2 id="vdso"><a class="header" href="#vdso">vDSO</a></h2>
+<p>Here is the list of supported symbols in vDSO:</p>
+<ul>
+<li><code>__vdso_clock_gettime</code></li>
+<li><code>__vdso_gettimeofday</code></li>
+<li><code>__vdso_time</code></li>
+</ul>
+<h2 id="boot-protocols"><a class="header" href="#boot-protocols">Boot Protocols</a></h2>
+<p>Here is the list of supported boot protocols:</p>
+<ul>
+<li><a href="https://www.gnu.org/software/grub/manual/multiboot/multiboot.html">Multiboot</a></li>
+<li><a href="https://www.gnu.org/software/grub/manual/multiboot2/multiboot.html">Multiboot2</a></li>
+<li><a href="https://www.kernel.org/doc/html/v5.4/x86/boot.html#bit-boot-protocol">Linux 32-bit boot protocol</a></li>
+<li><a href="https://www.kernel.org/doc/html/v5.4/x86/boot.html#efi-handover-protocol">Linux EFI handover</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="roadmap"><a class="header" href="#roadmap">Roadmap</a></h1>
+<p>Asterinas is a general-purpose OS kernel
+designed to support multiple CPU architectures and a variety of use cases.
+Currently, it only supports x86-64 VMs.
+Our roadmap includes the following plans:</p>
+<ul>
+<li>By 2024, we aim to achieve production-ready status for VM environments on x86-64.</li>
+<li>In 2025 and beyond, we will expand our support for CPU architectures and hardware devices.</li>
+</ul>
+<h2 id="target-early-use-cases"><a class="header" href="#target-early-use-cases">Target Early Use Cases</a></h2>
+<p>One of the biggest challenges for a new OS kernel is driver support.
+Linux has been widely accepted due to its wide range of hardware support.
+As a newcomer, Asterinas faces the challenge of implementing drivers
+for all devices on a target platform,
+which would take a significant amount of time.</p>
+<p>To address this obstacle,
+we have decided to enter the cloud market first.
+In an IaaS (Infrastructure-as-a-Service) cloud, workloads of different tenants are run in VMs
+or <a href="https://dl.acm.org/doi/10.1145/3373376.3378507">VM-style bare-metal servers</a>
+for maximum isolation and elasticity.
+The main device driver requirement for the VM environment is virtio,
+which is already supported by Asterinas.
+Therefore, using Asterinas as the guest OS of a VM
+or the host OS of a VM-style bare-metal server in production
+looks quite feasible in the near future.</p>
+<p>Asterinas provides high assurance of memory safety
+thanks to <a href="kernel/the-framekernel-architecture.html">the framekernel architecture</a>.
+Thus, in the cloud setting,
+Asterinas is attractive for usage scenarios
+where Linux ABI is necessary but Linux itself is considered insecure
+due to its large Trusted Computing Base (TCB) and memory unsafety.
+Specifically, we are focusing on two use cases:</p>
+<ol>
+<li>
+<p>VM-based TEEs:
+All major CPU architectures have introduced
+VM-based Trusted Execution Environment (TEE) technology,
+such as ARM CCA, AMD SEV, and Intel TDX.
+Applications running inside TEEs often handle private or sensitive data.
+By running on a lightweight and memory-safe OS kernel like Asterinas,
+they can greatly enhance security and privacy.</p>
+</li>
+<li>
+<p>Secure containers:
+In the cloud-native era, applications are commonly deployed in containers.
+The popular container runtimes like runc and Docker rely on
+the OS-level isolation enforced by Linux.
+However, <a href="https://dl.acm.org/doi/10.1145/3274694.3274720">Linux containers are prone to privilege escalation bugs</a>.
+With its safety and security prioritized architecture,
+Asterinas can offer more reliable OS-level isolation,
+making it ideal for secure containers.</p>
+</li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="asterinas-ostd"><a class="header" href="#asterinas-ostd">Asterinas OSTD</a></h1>
+<blockquote>
+<p>Confucious remarked,
+"I could follow whatever my heart desired
+without transgressing the law."</p>
+<p>子曰：
+"从心所欲，不逾矩。"</p>
+</blockquote>
+<p>With the Asterinas OSTD (Operating System Standard Library),
+you don't have to learn the dark art of unsafe Rust programming
+and risk shooting yourself in the foot.
+You will be doing whatever your heart desires,
+and be confident that your kernel will never crash
+or be hacked due to undefined behaviors,
+even if today marks your Day 1 as a Rust programmer.</p>
+<h2 id="apis"><a class="header" href="#apis">APIs</a></h2>
+<p>Asterinas OSTD stands
+as a powerful and solid foundation for safe kernel development,
+providing high-level safe Rust APIs that are</p>
+<ol>
+<li>Essential for OS development, and</li>
+<li>Dependent on the use of unsafe Rust.</li>
+</ol>
+<p>Most of these APIs fall into the following categories:</p>
+<ul>
+<li>Memory management (e.g., allocating and accessing physical memory pages)</li>
+<li>Task management (e.g., context switching between kernel tasks)</li>
+<li>User space (e.g., manipulating and entering the user space)</li>
+<li>Interrupt handling (e.g., registering interrupt handlers)</li>
+<li>Timer management (e.g., registering timer handlers)</li>
+<li>Driver support (e.g., performing DMA and MMIO)</li>
+<li>Boot support (e.g., retrieving information from the bootloader)</li>
+<li>Synchronization (e.g., locking and sleeping)</li>
+</ul>
+<p>To explore how these APIs come into play,
+see <a href="ostd/a-100-line-kernel.html">the example of a 100-line kernel in safe Rust</a>.</p>
+<p>The OSTD APIs have been extensively documented.
+You can access the comprehensive API documentation by visiting the <a href="https://docs.rs/ostd/latest/ostd">docs.rs</a>.</p>
+<h2 id="four-requirements-satisfied"><a class="header" href="#four-requirements-satisfied">Four Requirements Satisfied</a></h2>
+<p>In designing and implementing OSTD,
+we have risen to meet the challenge of
+fulfilling <a href="ostd/../kernel/the-framekernel-architecture.html">the aforementioned four criteria as demanded by the framekernel architecture</a>.</p>
+<p>Expressiveness is evident through Asterinas Kernel itself,
+where all system calls,
+file systems,
+network protocols,
+and device drivers (e.g., Virtio drivers)
+have been implemented in safe Rust
+by leveraging OSTD.</p>
+<p>Adopting a minimalist philosophy,
+OSTD has a small codebase.
+At its core lies the <code>ostd</code> crate,
+currently encompassing about 10K lines of code - a figure
+that is even smaller than those of many microkernels.
+As OSTD evolves,
+its codebase will expand,
+albeit at a relatively slow rate
+in comparison to the OS services layered atop it.</p>
+<p>The OSTD's efficiency is measurable
+through the performance metrics of its APIs
+and the system calls of Asterinas Kernel.
+No intrinsic limitations have been identified within Rust
+or the framekernel architecture
+that could hinder kernel performance.</p>
+<p>Soundness, unlike the other three requirements,
+is not as easily quantified or proved.
+While formal verification stands as the gold standard,
+it requires considerable resources and time
+and is not an immediate priority.
+As a more pragmatic approach,
+we will explain why the high-level design is sound
+in the soundness analysis and rely on the many
+eyes of the community to catch any potential flaws
+in the implementation.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example-writing-a-kernel-in-about-100-lines-of-safe-rust"><a class="header" href="#example-writing-a-kernel-in-about-100-lines-of-safe-rust">Example: Writing a Kernel in About 100 Lines of Safe Rust</a></h1>
+<p>To give you a sense of
+how Asterinas OSTD enables writing kernels in safe Rust,
+we will show a new kernel in about 100 lines of safe Rust.</p>
+<p>Our new kernel will be able to run the following Hello World program.</p>
+<pre><code class="language-s"># SPDX-License-Identifier: MPL-2.0
+
+.global _start                      # entry point
+.section .text                      # code section
+_start:
+    mov     $1, %rax                # syscall number of write
+    mov     $1, %rdi                # stdout
+    mov     $message, %rsi          # address of message         
+    mov     $message_end, %rdx
+    sub     %rsi, %rdx              # calculate message len
+    syscall
+    mov     $60, %rax               # syscall number of exit, move it to rax
+    mov     $0, %rdi                # exit code, move it to rdi
+    syscall  
+
+.section .rodata                    # read only data section
+message:
+    .ascii  "Hello, world\n"
+message_end:
+</code></pre>
+<p>The assembly program above can be compiled with the following command.</p>
+<pre><code class="language-bash">gcc -static -nostdlib hello.S -o hello
+</code></pre>
+<p>The user program above requires our kernel to support three main features:</p>
+<ol>
+<li>Loading a program as a process image in user space;</li>
+<li>Handling the write system call;</li>
+<li>Handling the exit system call.</li>
+</ol>
+<p>A sample implementation of the kernel in safe Rust is given below.
+Comments are added
+to highlight how the APIs of Asterinas OSTD enable safe kernel development.</p>
+<pre><code class="language-rust">// SPDX-License-Identifier: MPL-2.0
+
+#![no_std]
+#![deny(unsafe_code)]
+
+extern crate alloc;
+
+use align_ext::AlignExt;
+use core::str;
+
+use alloc::sync::Arc;
+use alloc::vec;
+
+use ostd::arch::qemu::{exit_qemu, QemuExitCode};
+use ostd::cpu::context::UserContext;
+use ostd::mm::{
+    CachePolicy, FallibleVmRead, FrameAllocOptions, PageFlags, PageProperty, Vaddr, VmIo, VmSpace,
+    VmWriter, PAGE_SIZE,
+};
+use ostd::prelude::*;
+use ostd::task::{disable_preempt, Task, TaskOptions};
+use ostd::user::{ReturnReason, UserMode};
+
+/// The kernel's boot and initialization process is managed by OSTD.
+/// After the process is done, the kernel's execution environment
+/// (e.g., stack, heap, tasks) will be ready for use and the entry function
+/// labeled as `#[ostd::main]` will be called.
+#[ostd::main]
+pub fn main() {
+    let program_binary = include_bytes!("../hello");
+    let vm_space = Arc::new(create_vm_space(program_binary));
+    vm_space.activate();
+    let user_task = create_user_task(vm_space);
+    user_task.run();
+}
+
+fn create_vm_space(program: &amp;[u8]) -&gt; VmSpace {
+    let nbytes = program.len().align_up(PAGE_SIZE);
+    let user_pages = {
+        let segment = FrameAllocOptions::new()
+            .alloc_segment(nbytes / PAGE_SIZE)
+            .unwrap();
+        // Physical memory pages can be only accessed
+        // via the `UFrame` or `USegment` abstraction.
+        segment.write_bytes(0, program).unwrap();
+        segment
+    };
+
+    // The page table of the user space can be
+    // created and manipulated safely through
+    // the `VmSpace` abstraction.
+    let vm_space = VmSpace::new();
+    const MAP_ADDR: Vaddr = 0x0040_0000; // The map addr for statically-linked executable
+    let preempt_guard = disable_preempt();
+    let mut cursor = vm_space
+        .cursor_mut(&amp;preempt_guard, &amp;(MAP_ADDR..MAP_ADDR + nbytes))
+        .unwrap();
+    let map_prop = PageProperty::new_user(PageFlags::RWX, CachePolicy::Writeback);
+    for frame in user_pages {
+        cursor.map(frame.into(), map_prop);
+    }
+    drop(cursor);
+    vm_space
+}
+
+fn create_user_task(vm_space: Arc&lt;VmSpace&gt;) -&gt; Arc&lt;Task&gt; {
+    fn user_task() {
+        let current = Task::current().unwrap();
+        // Switching between user-kernel space is
+        // performed via the UserMode abstraction.
+        let mut user_mode = {
+            let user_ctx = create_user_context();
+            UserMode::new(user_ctx)
+        };
+
+        loop {
+            // The execute method returns when system
+            // calls or CPU exceptions occur or some
+            // events specified by the kernel occur.
+            let return_reason = user_mode.execute(|| false);
+
+            // The CPU registers of the user space
+            // can be accessed and manipulated via
+            // the `UserContext` abstraction.
+            let user_context = user_mode.context_mut();
+            if ReturnReason::UserSyscall == return_reason {
+                let vm_space = current.data().downcast_ref::&lt;Arc&lt;VmSpace&gt;&gt;().unwrap();
+                handle_syscall(user_context, &amp;vm_space);
+            }
+        }
+    }
+
+    // Kernel tasks are managed by the Framework,
+    // while scheduling algorithms for them can be
+    // determined by the users of the Framework.
+    Arc::new(TaskOptions::new(user_task).data(vm_space).build().unwrap())
+}
+
+fn create_user_context() -&gt; UserContext {
+    // The user-space CPU states can be initialized
+    // to arbitrary values via the `UserContext`
+    // abstraction.
+    let mut user_ctx = UserContext::default();
+    const ENTRY_POINT: Vaddr = 0x0040_1000; // The entry point for statically-linked executable
+    user_ctx.set_rip(ENTRY_POINT);
+    user_ctx
+}
+
+fn handle_syscall(user_context: &amp;mut UserContext, vm_space: &amp;VmSpace) {
+    const SYS_WRITE: usize = 1;
+    const SYS_EXIT: usize = 60;
+
+    match user_context.rax() {
+        SYS_WRITE =&gt; {
+            // Access the user-space CPU registers safely.
+            let (_, buf_addr, buf_len) =
+                (user_context.rdi(), user_context.rsi(), user_context.rdx());
+            let buf = {
+                let mut buf = vec![0u8; buf_len];
+                // Copy data from the user space without
+                // unsafe pointer dereferencing.
+                let mut reader = vm_space.reader(buf_addr, buf_len).unwrap();
+                reader
+                    .read_fallible(&amp;mut VmWriter::from(&amp;mut buf as &amp;mut [u8]))
+                    .unwrap();
+                buf
+            };
+            // Use the console for output safely.
+            println!("{}", str::from_utf8(&amp;buf).unwrap());
+            // Manipulate the user-space CPU registers safely.
+            user_context.set_rax(buf_len);
+        }
+        SYS_EXIT =&gt; exit_qemu(QemuExitCode::Success),
+        _ =&gt; unimplemented!(),
+    }
+}</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="osdk-user-guide"><a class="header" href="#osdk-user-guide">OSDK User Guide</a></h1>
+<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
+<p>The Asterinas OSDK (short for Operating System Development Kit)
+is designed to simplify the development of Rust operating systems.
+It aims to streamline the process
+by leveraging <a href="osdk/guide/../../kernel/the-framekernel-architecture.html">the framekernel architecture</a>.</p>
+<p>The OSDK provides a command-line tool <code>cargo-osdk</code>,
+which facilitates project management
+for those developed on the framekernel architecture.
+<code>cargo-osdk</code> can be used as a subcommand of Cargo.
+Much like Cargo for Rust projects,
+<code>cargo-osdk</code> enables building, running,
+and testing projects conveniently.</p>
+<h2 id="install-osdk"><a class="header" href="#install-osdk">Install OSDK</a></h2>
+<h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
+<p>Currently, OSDK is only supported on x86_64 Ubuntu systems.
+We will add support for more operating systems in the future.</p>
+<p>To run a kernel developed by OSDK with QEMU,
+the following tools need to be installed:</p>
+<ul>
+<li>Rust &gt;= 1.75.0</li>
+<li>cargo-binutils</li>
+<li>gcc</li>
+<li>gdb</li>
+<li>grub</li>
+<li>ovmf</li>
+<li>qemu-system-x86_64</li>
+<li>xorriso</li>
+</ul>
+<p>The dependencies required for installing Rust and running QEMU can be installed by:</p>
+<pre><code class="language-bash">apt install build-essential curl gdb grub-efi-amd64 grub2-common \
+    libpixman-1-dev mtools ovmf qemu-system-x86 xorriso
+</code></pre>
+<p>About how to install Rust, you can refer to
+the <a href="https://www.rust-lang.org/tools/install">official site</a>.</p>
+<p><code>cargo-binutils</code> can be installed
+after Rust is installed by</p>
+<pre><code class="language-bash">cargo install cargo-binutils
+</code></pre>
+<h3 id="install"><a class="header" href="#install">Install</a></h3>
+<p><code>cargo-osdk</code> is published on <a href="https://crates.io/">crates.io</a>,
+and can be installed by running</p>
+<pre><code class="language-bash">cargo install cargo-osdk
+</code></pre>
+<h3 id="upgrade"><a class="header" href="#upgrade">Upgrade</a></h3>
+<p>If <code>cargo-osdk</code> is already installed,
+the tool can be upgraded by running</p>
+<pre><code class="language-bash">cargo install --force cargo-osdk
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="why-osdk"><a class="header" href="#why-osdk">Why OSDK</a></h1>
+<p>OSDK is designed to elevate the development experience
+for Rust OS developers to the ease and convenience
+typically associated with Rust application development.
+Imagine crafting operating systems
+with the same simplicity as applications!
+This is important to Asterinas
+as we believe that the project's success
+is intricately tied to the productivity and happiness
+of its developers.
+So the OSDK is here to upgrade your dev experience.</p>
+<p>To be honest, writing OS kernels is hard.
+Even when you're using Rust,
+which is a total game-changer for OS devs,
+the challenge stands tall.
+There is a bunch of reasons.</p>
+<p>First, it is hard to write a new kernel from scratch.
+Everything that has been taken for granted by
+application developers are gone:
+no stack, no heap, no threads, not even the standard I/O.
+It's just you and the no_std world of Rust.
+You have to implement these basic programming primitives
+by getting your hands dirty with the most low-level,
+error-prone, and nitty-gritty details of computer architecture.
+It's a journey of learning, doing, and
+a whole lot of finger-crossing
+to make sure everything clicks into place.
+This means a high entry bar for new OS creators.</p>
+<p>Second, it is hard to
+reuse OS-related libraries/crates across projects.
+Think about it:
+most applications share a common groundwork,
+like libc, Rust's std library, or an SDK.
+This isn't the case with kernels -
+they lack this shared starting point,
+forcing each one to craft its own set of tools
+from the ground up.
+Take device drivers, for example.
+They often need DMA-capable buffers for chatting with hardware,
+but since every kernel has its own DMA API flavor,
+a driver for one kernel is pretty much a no-go for another.
+This means that for each new kernel out there,
+developers find themselves having to 'reinvent the wheel'
+for many core components that are standard in other kernels.</p>
+<p>Third, it is hard to do unit tests for OS functionalities.
+Unit testing plays a crucial role in ensuring code quality,
+but when you're dealing with a monolithic kernel like Linux,
+it's like a spaghetti bowl of intertwined parts.
+Trying to isolate one part for testing?
+Forget about it.
+You'd have to boot the whole kernel just to test a slice of it.
+Loadable kernel modules are no exception:
+you can't test them without plugging them into a live kernel.
+This monolithic approach to unit testing is slow and unproductive
+as it performs the job of unit tests
+at a price of integration tests.
+Regardless of the kernel architecture,
+Rust's built-in unit testing facility
+is not suited for kernel development,
+leaving each kernel to hack together their own testing frameworks.</p>
+<p>Last, it is hard to avoid writing unsafe Rust in a Rust kernel.
+Rust brings safety...
+well, at least for Rust applications,
+where you can pretty much stay
+in the wonderland of safe Rust all the way through.
+But for a Rust kernel,
+one cannot help but use unsafe Rust.
+This is because, among other reasons,
+low-level operations (e.g., managing page tables,
+doing context switching, handling interrupts,
+and interacting with devices) have to be expressed
+with unsafe Rust features (like executing assembly code
+or dereferencing raw pointers).
+The misuse of unsafe Rust could lead to
+various safety and security issues,
+as reported by <a href="https://rustsec.org">RustSec Advisory Database</a>.
+Despite having <a href="https://doc.rust-lang.org/nomicon/">a whole book</a>
+to document "the Dark Arts of Unsafe Rust",
+unsafe Rust is still tricky to use correctly,
+even among seasoned Rust developers.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-an-os-project"><a class="header" href="#creating-an-os-project">Creating an OS Project</a></h1>
+<p>The OSDK can be used to create a new kernel project
+or a new library project.
+A kernel project defines the entry point of the kernel
+and can be run with QEMU.
+A library project can provide certain OS functionalities
+and be imported by other OSes.</p>
+<h2 id="creating-a-new-kernel-project"><a class="header" href="#creating-a-new-kernel-project">Creating a new kernel project</a></h2>
+<p>Creating a new kernel project is simple.
+You only need to execute the following command:</p>
+<pre><code class="language-bash">cargo osdk new --kernel myos
+</code></pre>
+<h2 id="creating-a-new-library-project"><a class="header" href="#creating-a-new-library-project">Creating a new library project</a></h2>
+<p>Creating a new library project requires just one command:</p>
+<pre><code class="language-bash">cargo osdk new mylib
+</code></pre>
+<h2 id="generated-files"><a class="header" href="#generated-files">Generated files</a></h2>
+<p>Next, we will introduce
+the contents of the generated project in detail.
+If you don't wish to delve into the details,
+you can skip the following sections.</p>
+<h3 id="overview-2"><a class="header" href="#overview-2">Overview</a></h3>
+<p>The generated directory
+for both the kernel project and library project
+contains the following contents:</p>
+<pre><code class="language-text">myos/
+├── Cargo.toml
+├── OSDK.toml
+├── rust-toolchain.toml
+└── src/
+    └── lib.rs
+</code></pre>
+<h3 id="srclibrs"><a class="header" href="#srclibrs"><code>src/lib.rs</code></a></h3>
+<h4 id="kernel-project"><a class="header" href="#kernel-project">Kernel project</a></h4>
+<p>The <code>src/lib.rs</code> file contains the code for a simple kernel.
+The function marked with the <code>#[ostd::main]</code> macro
+is considered the kernel entry point by OSDK.
+The kernel
+will print <code>Hello world from the guest kernel!</code>to the console
+and then abort.</p>
+<pre><code class="language-rust">#![no_std]
+#![deny(unsafe_code)]
+
+use ostd::prelude::*;
+
+#[ostd::main]
+fn kernel_main() {
+    println!("Hello world from guest kernel!");
+}</code></pre>
+<h4 id="library-project"><a class="header" href="#library-project">Library project</a></h4>
+<p>The <code>src/lib.rs</code> of library project only contains
+a simple kernel mode unit test.
+It follows a similar code pattern as user mode unit tests.
+The test module is marked with the <code>#[cfg(ktest)]</code> macro,
+and each test case is marked with <code>#[ktest]</code>.</p>
+<pre><code class="language-rust">#![no_std]
+#![deny(unsafe_code)]
+
+#[cfg(ktest)]
+mod tests {
+    use ostd::prelude::*;
+
+    #[ktest]
+    fn it_works() {
+        let memory_regions = &amp;ostd::boot::boot_info().memory_regions;
+        assert!(!memory_regions.is_empty());
+    }
+}</code></pre>
+<h3 id="cargotoml"><a class="header" href="#cargotoml"><code>Cargo.toml</code></a></h3>
+<p>The <code>Cargo.toml</code> file is the Rust project manifest.
+In addition to the contents of a normal Rust project,
+OSDK will add the dependencies of the Asterinas OSTD to the file.
+The dependency version may change over time.</p>
+<pre><code class="language-toml">[dependencies.ostd]
+git = "https://github.com/asterinas/asterinas"
+branch = "main"
+</code></pre>
+<p>OSDK will also exclude the directory
+which is used to generate temporary files.</p>
+<pre><code class="language-toml">[workspace]
+exclude = ["target/osdk/base"]
+</code></pre>
+<h3 id="osdktoml"><a class="header" href="#osdktoml"><code>OSDK.toml</code></a></h3>
+<p>The <code>OSDK.toml</code> file is a manifest
+that defines the exact behavior of OSDK.
+By default, it includes settings on how to start QEMU to run a kernel.
+The meaning of each key can be found
+in the <a href="osdk/guide/../reference/manifest.html">manifest documentation</a>.
+Please avoid changing the default settings
+unless you know what you are doing.</p>
+<p>The default manifest of a kernel project:</p>
+<pre><code class="language-toml">project_type = "kernel"
+
+[boot]
+method = "grub-rescue-iso"
+
+[qemu]
+args = """\
+    -machine q35,kernel-irqchip=split \
+    -cpu Icelake-Server,+x2apic \
+    --no-reboot \
+    -m 8G \
+    -smp 1 \
+    -nographic \
+    -serial chardev:mux \
+    -monitor chardev:mux \
+    -chardev stdio,id=mux,mux=on,signal=off \
+    -display none \
+    -device isa-debug-exit,iobase=0xf4,iosize=0x04 \
+    -drive if=pflash,format=raw,unit=0,readonly=on,file=/root/ovmf/release/OVMF.fd \
+    -drive if=pflash,format=raw,unit=1,file=/root/ovmf/release/OVMF_VARS.fd \
+"""
+</code></pre>
+<h3 id="rust-toolchaintoml"><a class="header" href="#rust-toolchaintoml"><code>rust-toolchain.toml</code></a></h3>
+<p>The Rust toolchain for the kernel.
+It is the same as the toolchain of the Asterinas OSTD.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="running-or-testing-an-os-project"><a class="header" href="#running-or-testing-an-os-project">Running or Testing an OS Project</a></h1>
+<p>The OSDK allows for convenient building, running,
+and testing of an OS project.
+The following example shows the typical workflow.</p>
+<p>Suppose you have created a new kernel project named <code>myos</code>
+and you are in the project directory:</p>
+<pre><code class="language-bash">cargo osdk new --kernel myos &amp;&amp; cd myos
+</code></pre>
+<h2 id="build-the-project"><a class="header" href="#build-the-project">Build the project</a></h2>
+<p>To build the project and its dependencies,
+simply type:</p>
+<pre><code class="language-bash">cargo osdk build
+</code></pre>
+<p>The initial build of an OSDK project
+may take a considerable amount of time
+as it involves downloading the Rust toolchain used by the framekernel.
+However, this is a one-time process.</p>
+<h2 id="run-the-project"><a class="header" href="#run-the-project">Run the project</a></h2>
+<p>To launch the kernel with QEMU,
+use the following command:</p>
+<pre><code class="language-bash">cargo osdk run
+</code></pre>
+<p>OSDK will boot the kernel
+and initialize OS resources like the console for output,
+and then hand over control to the kernel entry point
+to execute the kernel code.</p>
+<p><strong>Note</strong>: Only kernel projects (the projects
+that defines the function marked with <code>#[ostd::main]</code>)
+can be run;
+library projects cannot.</p>
+<h2 id="test-the-project"><a class="header" href="#test-the-project">Test the project</a></h2>
+<p>Suppose you have created a new library project named <code>mylib</code>
+which contains a default test case
+and you are in the project directory.</p>
+<pre><code class="language-bash">cargo osdk new --lib mylib &amp;&amp; cd mylib
+</code></pre>
+<p>To run the kernel mode tests, use the following command:</p>
+<pre><code class="language-bash">cargo osdk test
+</code></pre>
+<p>OSDK will run all the kernel mode tests in the crate.</p>
+<p>Test cases can be added not only in library projects
+but also in kernel projects.</p>
+<p>If you want to run a specific test with a given name,
+for example, if the test is named <code>foo</code>,
+use the following command:</p>
+<pre><code class="language-bash">cargo osdk test foo
+</code></pre>
+<h2 id="options"><a class="header" href="#options">Options</a></h2>
+<p>All of the <code>build</code>, <code>run</code>, and <code>test</code> commands accept options
+to control their behavior, such as how to compile and
+launch the kernel.
+The following documentations provide details on
+all the available options:</p>
+<ul>
+<li><a href="osdk/guide/../reference/commands/build.html"><code>build</code> options</a></li>
+<li><a href="osdk/guide/../reference/commands/run.html"><code>run</code> options</a></li>
+<li><a href="osdk/guide/../reference/commands/test.html"><code>test</code> options</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="working-in-a-workspace"><a class="header" href="#working-in-a-workspace">Working in a Workspace</a></h1>
+<p>Typically, an operating system may consist of multiple crates,
+and these crates may be organized in a workspace.
+The OSDK also supports managing projects in a workspace.
+Below is an example that demonstrates
+how to create, build, run, and test projects in a workspace.</p>
+<h2 id="creating-a-new-workspace"><a class="header" href="#creating-a-new-workspace">Creating a new workspace</a></h2>
+<p>Create a new workspace by executing the following commands:</p>
+<pre><code class="language-bash">mkdir myworkspace &amp;&amp; cd myworkspace
+touch Cargo.toml
+</code></pre>
+<p>Then, add the following content to <code>Cargo.toml</code>:</p>
+<pre><code class="language-toml">[workspace]
+members = []
+resolver = "2"
+</code></pre>
+<h2 id="creating-a-kernel-project-and-a-library-project"><a class="header" href="#creating-a-kernel-project-and-a-library-project">Creating a kernel project and a library project</a></h2>
+<p>The two projects can be created using the following commands:</p>
+<pre><code class="language-bash">cargo osdk new --kernel myos
+cargo osdk new mylib
+</code></pre>
+<p>The generated directory structure will be as follows:</p>
+<pre><code class="language-text">myworkspace/
+  ├── Cargo.toml
+  ├── OSDK.toml
+  ├── rust-toolchain.toml
+  ├── myos/
+  │   ├── Cargo.toml
+  │   └── src/
+  │       └── lib.rs
+  └── mylib/
+      ├── Cargo.toml
+      └── src/
+          └── lib.rs
+</code></pre>
+<p>At present, the OSDK mandates that there must be only one kernel project
+within a workspace.</p>
+<p>In addition to the two projects,
+the OSDK will also generate <code>OSDK.toml</code> and <code>rust-toolchain.toml</code>
+at the root of the workspace.</p>
+<p>Next, add the following function to <code>mylib/src/lib.rs</code>.
+This function will calculate the available memory
+after booting:</p>
+<pre><code class="language-rust">// SPDX-License-Identifier: MPL-2.0
+
+pub fn available_memory() -&gt; usize {
+    let regions = &amp;ostd::boot::boot_info().memory_regions;
+    regions.iter().map(|region| region.len()).sum()
+}</code></pre>
+<p>Then, add a dependency on <code>mylib</code> to <code>myos/Cargo.toml</code>:</p>
+<pre><code class="language-toml">[dependencies]
+mylib = { path = "../mylib" }
+</code></pre>
+<p>In <code>myos/src/lib.rs</code>,
+modify the file content as follows.
+This main function will call the function from <code>mylib</code>:</p>
+<pre><code class="language-rust">// SPDX-License-Identifier: MPL-2.0
+
+#![no_std]
+#![deny(unsafe_code)]
+
+use ostd::prelude::*;
+
+#[ostd::main]
+fn kernel_main() {
+    let avail_mem_as_mb = mylib::available_memory() / 1_000_000;
+    println!("The available memory is {} MB", avail_mem_as_mb);
+}</code></pre>
+<h2 id="building-and-running-the-kernel"><a class="header" href="#building-and-running-the-kernel">Building and Running the kernel</a></h2>
+<p>Build and run the project using the following commands:</p>
+<pre><code class="language-bash">cargo osdk build
+cargo osdk run
+</code></pre>
+<p>If everything goes well,
+you will see the output from the guest kernel.</p>
+<h2 id="running-unit-test"><a class="header" href="#running-unit-test">Running unit test</a></h2>
+<p>You can run test cases from all crates
+by using the following command in the workspace folder:</p>
+<pre><code class="language-bash">cargo osdk test
+</code></pre>
+<p>If you want to run test cases from a specific crate,
+navigate to the crate's folder
+and run <code>cargo osdk test</code>.
+For example, if you want to test <code>mylib</code>,
+use the following command:</p>
+<pre><code class="language-bash">cd mylib &amp;&amp; cargo osdk test
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="advanced-topics"><a class="header" href="#advanced-topics">Advanced topics</a></h1>
+<p>This chapter delves into advanced topics regarding OSDK,
+including its application in TEE environments such as Intel TDX.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="running-an-os-in-intel-tdx-env"><a class="header" href="#running-an-os-in-intel-tdx-env">Running an OS in Intel TDX env</a></h1>
+<p>The OSDK supports running your OS in an <a href="https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/overview.html">Intel TDX</a> environment conveniently.
+Intel TDX can provide a more secure environment for your OS.</p>
+<h2 id="prepare-the-intel-tdx-environment-1"><a class="header" href="#prepare-the-intel-tdx-environment-1">Prepare the Intel TDX Environment</a></h2>
+<p>Please make sure your server supports Intel TDX.</p>
+<p>See <a href="https://github.com/canonical/tdx/tree/noble-24.04?tab=readme-ov-file#4-setup-host-os">this guide</a>
+or other materials to enable Intel TDX in host OS.</p>
+<p>To verify the TDX host status, you can type:</p>
+<pre><code class="language-bash">dmesg | grep "TDX module initialized"
+</code></pre>
+<p>The following result is an example:</p>
+<pre><code class="language-bash">[   20.507296] tdx: TDX module initialized.
+</code></pre>
+<p>If you see the message "TDX module initialized",
+it means the TDX module has loaded successfully.</p>
+<p>The Intel TDX environment requires TDX-enhanced versions of QEMU, KVM, GRUB,
+and other essential software for running an OS.
+Therefore, it is recommended to use a Docker image to deploy the environment.</p>
+<p>Run a TDX Docker container:</p>
+<pre><code class="language-bash">docker run -it --privileged --network=host --device=/dev/kvm asterinas/osdk:0.9.4-tdx
+</code></pre>
+<h2 id="edit-osdktoml-for-intel-tdx-support"><a class="header" href="#edit-osdktoml-for-intel-tdx-support">Edit <code>OSDK.toml</code> for Intel TDX support</a></h2>
+<p>As Intel TDX has extra requirements or restrictions for VMs,
+it demands adjusting the OSDK configurations accordingly.
+This can be easily achieved with the <code>scheme</code> feature of the OSDK,
+which provides a convenient way to override the default OSDK configurations
+for a specific environment.</p>
+<p>For example, you can append the following TDX-specific scheme to your <code>OSDK.toml</code> file.</p>
+<pre><code class="language-toml">[scheme."tdx"]
+supported_archs = ["x86_64"]
+boot.method = "grub-qcow2"
+grub.mkrescue_path = "~/tdx-tools/grub"
+grub.protocol = "linux"
+qemu.args = """\
+    -accel kvm \
+    -m 8G \
+    -vga none \
+    -monitor pty \
+    -nodefaults \
+    -drive file=target/osdk/asterinas/asterinas.qcow2,if=virtio,format=qcow2 \
+    -monitor telnet:127.0.0.1:9001,server,nowait \
+    -bios /root/ovmf/release/OVMF.fd \
+    -object tdx-guest,sept-ve-disable=on,id=tdx0 \
+    -cpu host,-kvm-steal-time,pmu=off \
+    -machine q35,kernel-irqchip=split,confidential-guest-support=tdx0 \
+    -smp 1 \
+    -nographic \
+"""
+</code></pre>
+<p>To choose the configurations specified by the TDX scheme over the default ones,
+add the <code>--scheme</code> argument to the build, run, or test command.</p>
+<pre><code class="language-bash">cargo osdk build --scheme tdx
+cargo osdk run --scheme tdx
+cargo osdk test --scheme tdx
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="osdk-user-reference"><a class="header" href="#osdk-user-reference">OSDK User Reference</a></h1>
+<p>The Asterinas OSDK is a command line tool that can be used
+as a subcommand of Cargo.
+The common usage of OSDK is:</p>
+<pre><code class="language-bash">cargo osdk &lt;COMMAND&gt;
+</code></pre>
+<p>You can use <code>cargo osdk -h</code>
+to see the full list of available commands.
+For the specific usage of a subcommand,
+you can use <code>cargo osdk help &lt;COMMAND&gt;</code>.</p>
+<h2 id="manifest"><a class="header" href="#manifest">Manifest</a></h2>
+<p>The OSDK utilizes a manifest named <code>OSDK.toml</code>
+to define its precise behavior regarding
+how to run a kernel with QEMU.
+The <code>OSDK.toml</code> file should be placed
+in the same folder as the project's <code>Cargo.toml</code>.
+The <a href="osdk/reference/manifest.html">Manifest documentation</a>
+provides an introduction
+to all the available configuration options.</p>
+<p>The command line tool can also be used
+to set the options in the manifest.
+If both occur, the command line options
+will always take priority over the options in the manifest.
+For example, if the manifest defines the path of QEMU as:</p>
+<pre><code class="language-toml">[qemu]
+path = "/usr/bin/qemu-system-x86_64"
+</code></pre>
+<p>But the user provides a new QEMU path
+when running the project using:</p>
+<pre><code class="language-bash">cargo osdk run --qemu.path="/usr/local/qemu-kvm"
+</code></pre>
+<p>Then, the actual path of QEMU should be <code>/usr/local/qemu-kvm</code>
+since command line options have higher priority.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="commands"><a class="header" href="#commands">Commands</a></h1>
+<p>OSDK provides similar subcommands as Cargo,
+and these subcommands have simalar meanings
+as corresponding Cargo subcommands.</p>
+<p>Currently, OSDK supports the following subcommands:</p>
+<ul>
+<li><strong>new</strong>: Create a new kernel package or library package</li>
+<li><strong>build</strong>: Compile the project and its dependencies</li>
+<li><strong>run</strong>: Run the kernel with a VMM</li>
+<li><strong>test</strong>: Execute kernel mode unit test by starting a VMM</li>
+<li><strong>debug</strong>: Debug a remote target via GDB</li>
+<li><strong>profile</strong>: Profile a remote GDB debug target to collect stack traces</li>
+<li><strong>check</strong>: Analyze the current package and report errors</li>
+<li><strong>clippy</strong>: Check the current package and catch common mistakes</li>
+</ul>
+<p>The <strong>new</strong>, <strong>build</strong>, <strong>run</strong>, <strong>test</strong> and <strong>debug</strong> subcommands
+can accept additional options,
+while the <strong>check</strong> and <strong>clippy</strong> subcommands can only accept arguments
+that are compatible with the corresponding Cargo subcommands.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cargo-osdk-new"><a class="header" href="#cargo-osdk-new">cargo osdk new</a></h1>
+<h2 id="overview-3"><a class="header" href="#overview-3">Overview</a></h2>
+<p>The <code>cargo osdk new</code> command
+is used to create a kernel project
+or a new library project.
+The usage is as follows:</p>
+<pre><code class="language-bash">cargo osdk new [OPTIONS] &lt;name&gt;
+</code></pre>
+<h2 id="arguments"><a class="header" href="#arguments">Arguments</a></h2>
+<p><code>&lt;name&gt;</code>: the name of the crate.</p>
+<h2 id="options-1"><a class="header" href="#options-1">Options</a></h2>
+<p><code>--kernel</code>:
+Use the kernel template.
+If this option is not set,
+the library template will be used by default.</p>
+<p><code>--library</code>:
+Use the library template. This is the default option.</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<ul>
+<li>Create a new kernel named <code>myos</code>:</li>
+</ul>
+<pre><code class="language-bash">cargo osdk new --kernel myos
+</code></pre>
+<ul>
+<li>Create a new library named <code>mylib</code>:</li>
+</ul>
+<pre><code class="language-bash">cargo osdk new mylib
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cargo-osdk-build"><a class="header" href="#cargo-osdk-build">cargo osdk build</a></h1>
+<h2 id="overview-4"><a class="header" href="#overview-4">Overview</a></h2>
+<p>The <code>cargo osdk build</code> command is used to
+compile the project and its dependencies.
+The usage is as follows:</p>
+<pre><code class="language-bash">cargo osdk build [OPTIONS]
+</code></pre>
+<h2 id="options-2"><a class="header" href="#options-2">Options</a></h2>
+<p>The options can be divided into two types:
+Cargo options that can be accepted by Cargo,
+and Manifest options that can also be defined
+in the manifest named <code>OSDK.toml</code>.</p>
+<h3 id="cargo-options"><a class="header" href="#cargo-options">Cargo options</a></h3>
+<ul>
+<li>
+<p><code>--profile &lt;PROFILE&gt;</code>:
+Build artifacts with the specified Cargo profile
+(built-in candidates are 'dev', 'release', 'test', and 'bench')
+[default: dev]</p>
+</li>
+<li>
+<p><code>--release</code>:
+Build artifacts in release mode, with optimizations</p>
+</li>
+<li>
+<p><code>--features &lt;FEATURES&gt;</code>:
+Space or comma separated list of features to activate</p>
+</li>
+<li>
+<p><code>--no-default-features</code>:
+Do not activate the <code>default</code> features</p>
+</li>
+<li>
+<p><code>--config &lt;KEY=VALUE&gt;</code>:
+Override a configuration value</p>
+</li>
+</ul>
+<p>More Cargo options will be supported in future versions of OSDK.</p>
+<h3 id="manifest-options"><a class="header" href="#manifest-options">Manifest options</a></h3>
+<p>These options can also be defined
+in the project's manifest named <code>OSDK.toml</code>.
+Command line options are used to override
+or append values in <code>OSDK.toml</code>.
+The allowed values for each option can be found
+in the <a href="osdk/reference/commands/../manifest.html">Manifest Documentation</a>.</p>
+<ul>
+<li><code>--kcmd-args &lt;ARGS&gt;</code>:
+Command line arguments for the guest kernel</li>
+<li><code>--init-args &lt;ARGS&gt;</code>:
+Command line arguments for the init process</li>
+<li><code>--initramfs &lt;PATH&gt;</code>:
+Path of the initramfs</li>
+<li><code>--boot-method &lt;METHOD&gt;</code>:
+The method to boot the kernel</li>
+<li><code>--grub-mkrescue &lt;PATH&gt;</code>:
+Path of grub-mkrescue</li>
+<li><code>--grub-boot-protocol &lt;PROTOCOL&gt;</code>:
+The boot protocol for booting the kernel</li>
+<li><code>--display-grub-menu</code>:
+To display the GRUB menu if booting with GRUB</li>
+<li><code>--qemu-exe &lt;FILE&gt;</code>:
+The QEMU executable file</li>
+<li><code>--qemu-args &lt;ARGS&gt;</code>:
+Extra arguments for running QEMU</li>
+<li><code>--strip-elf</code>:
+Whether to strip the built kernel ELF using <code>rust-strip</code></li>
+<li><code>--scheme &lt;SCHEME&gt;</code>:
+Select the specific configuration scheme provided in the OSDK manifest</li>
+<li><code>--encoding &lt;FORMAT&gt;</code>:
+Denote the encoding format for kernel self-decompression</li>
+</ul>
+<h2 id="examples-1"><a class="header" href="#examples-1">Examples</a></h2>
+<ul>
+<li>Build a project with <code>./initramfs.cpio.gz</code>
+as the initramfs and <code>multiboot2</code> as the boot protocol used by GRUB:</li>
+</ul>
+<pre><code class="language-bash">cargo osdk build --initramfs="./initramfs.cpio.gz" --grub-boot-protocol="multiboot2"
+</code></pre>
+<ul>
+<li>Build a project and append <code>sh</code>, <code>-l</code>
+to init process arguments:</li>
+</ul>
+<pre><code class="language-bash">cargo osdk build --init_args="sh" --init_args="-l"
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cargo-osdk-run"><a class="header" href="#cargo-osdk-run">cargo osdk run</a></h1>
+<h2 id="overview-5"><a class="header" href="#overview-5">Overview</a></h2>
+<p><code>cargo osdk run</code> is used to run the kernel with QEMU.
+The usage is as follows:</p>
+<pre><code class="language-bash">cargo osdk run [OPTIONS]
+</code></pre>
+<h2 id="options-3"><a class="header" href="#options-3">Options</a></h2>
+<p>Most options are the same as those of <code>cargo osdk build</code>.
+Refer to the <a href="osdk/reference/commands/build.html">documentation</a> of <code>cargo osdk build</code>
+for more details.</p>
+<p>Additionally, when running the kernel using QEMU, we can setup the QEMU as a
+debug server using option <code>--gdb-server</code>. This option supports an additional
+comma separated configuration list:</p>
+<ul>
+<li><code>addr=ADDR</code>: the network or unix socket address on which the GDB server listens
+(default: <code>.osdk-gdb-socket</code>, a local UNIX socket);</li>
+<li><code>wait-client</code>: let the GDB server wait for the GDB client before execution;</li>
+<li><code>vscode</code>: generate a '.vscode/launch.json' for debugging with Visual Studio Code
+(Requires <a href="https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb">CodeLLDB</a>).</li>
+</ul>
+<p>Besides, to collect coverage data, we can use option <code>--coverage</code>. This option
+enables the coverage feature and collect coverage data to <code>coverage.profraw</code> when exit.</p>
+<p>See <a href="osdk/reference/commands/debug.html">Debug Command</a> to interact with the GDB server in terminal.</p>
+<h2 id="examples-2"><a class="header" href="#examples-2">Examples</a></h2>
+<p>Launch a debug server via QEMU with an unix socket stub, e.g. <code>.debug</code>:</p>
+<pre><code class="language-bash">cargo osdk run --gdb-server addr=.debug
+
+```bash
+cargo osdk run --gdb-server --gdb-server-addr .debug
+</code></pre>
+<p>Launch a debug server via QEMU with a TCP stub, e.g., <code>localhost:1234</code>:</p>
+<pre><code class="language-bash">cargo osdk run --gdb-server addr=:1234
+</code></pre>
+<p>Launch a debug server via QEMU and use VSCode to interact with:</p>
+<pre><code class="language-bash">cargo osdk run --gdb-server wait-client,vscode,addr=:1234
+</code></pre>
+<p>Launch a debug server via QEMU and use VSCode to interact with:</p>
+<pre><code class="language-bash">cargo osdk run --gdb-server --gdb-vsc --gdb-server-addr :1234
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cargo-osdk-test"><a class="header" href="#cargo-osdk-test">cargo osdk test</a></h1>
+<p><code>cargo osdk test</code> is used to
+execute kernel mode unit test by starting QEMU.
+The usage is as follows:</p>
+<pre><code class="language-bash">cargo osdk test [TESTNAME] [OPTIONS] 
+</code></pre>
+<h2 id="arguments-1"><a class="header" href="#arguments-1">Arguments</a></h2>
+<p><code>TESTNAME</code>:
+Only run tests containing this string in their names</p>
+<h2 id="options-4"><a class="header" href="#options-4">Options</a></h2>
+<p>The options are the same as those of <code>cargo osdk build</code>.
+Refer to the <a href="osdk/reference/commands/build.html">documentation</a> of <code>cargo osdk build</code>
+for more details.</p>
+<h2 id="examples-3"><a class="header" href="#examples-3">Examples</a></h2>
+<ul>
+<li>Execute tests that include <em>foo</em> in their names
+using QEMU with 3GB of memory</li>
+</ul>
+<pre><code class="language-bash">cargo osdk test foo --qemu-args="-m 3G"
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cargo-osdk-debug"><a class="header" href="#cargo-osdk-debug">cargo osdk debug</a></h1>
+<h2 id="overview-6"><a class="header" href="#overview-6">Overview</a></h2>
+<p><code>cargo osdk debug</code> is used to debug a remote target via GDB. You need to start
+a running server to debug with. This is accomplished by the <code>run</code> subcommand
+with <code>--gdb-server</code>. Then you can use the following command to attach to the
+server and do debugging.</p>
+<pre><code class="language-bash">cargo osdk debug [OPTIONS]
+</code></pre>
+<p>Note that when KVM is enabled, hardware-assisted break points (<code>hbreak</code>) are
+needed instead of the normal break points (<code>break</code>/<code>b</code>) in GDB.</p>
+<h2 id="options-5"><a class="header" href="#options-5">Options</a></h2>
+<p><code>--remote &lt;REMOTE&gt;</code>:
+Specify the address of the remote target [default: .osdk-gdb-socket].
+The address can be either a path for the UNIX domain socket
+or a TCP port on an IP address.</p>
+<h2 id="examples-4"><a class="header" href="#examples-4">Examples</a></h2>
+<p>To debug a remote target started with
+<a href="https://www.qemu.org/docs/master/system/gdb.html">QEMU GDB stub</a> or the <code>run</code>
+subcommand, use the following commands.</p>
+<p>Connect to an unix socket, e.g., <code>./debug</code>:</p>
+<pre><code class="language-bash">cargo osdk debug --remote ./debug
+</code></pre>
+<p>Connect to a TCP port (<code>[IP]:PORT</code>), e.g., <code>localhost:1234</code>:</p>
+<pre><code class="language-bash">cargo osdk debug --remote localhost:1234
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="cargo-osdk-profile"><a class="header" href="#cargo-osdk-profile">cargo osdk profile</a></h1>
+<h2 id="overview-7"><a class="header" href="#overview-7">Overview</a></h2>
+<p>The profile command is used to collect stack traces when running the target
+kernel in QEMU. It attaches to the GDB server, initiated with the run subcommand,
+and collects the stack trace periodically. The collected information can be
+used to directly generate a flame graph, or be stored for later analysis using
+<a href="https://github.com/brendangregg/FlameGraph">the original flame graph tool</a>.</p>
+<h2 id="options-6"><a class="header" href="#options-6">Options</a></h2>
+<p><code>--remote &lt;REMOTE&gt;</code>:</p>
+<p>Specify the address of the remote target.
+By default this is <code>.osdk-gdb-socket</code></p>
+<p><code>--samples &lt;SAMPLES&gt;</code>:</p>
+<p>The number of samples to collect (default 200).
+It is recommended to go beyond 100 for performance analysis.</p>
+<p><code>--interval &lt;INTERVAL&gt;</code>:</p>
+<p>The interval between samples in seconds (default 0.1).</p>
+<p><code>--parse &lt;PATH&gt;</code>:</p>
+<p>Parse a collected JSON profile file into other formats.</p>
+<p><code>--format &lt;FORMAT&gt;</code>:</p>
+<p>Possible values:
+- <code>json</code>:   The parsed stack trace log from GDB in JSON.
+- <code>folded</code>: The folded stack trace for flame graph.
+- <code>flame-graph</code>: A SVG flame graph.</p>
+<p>If the user does not specify the format, it will be inferred from the
+output file extension. If the output file does not have an extension,
+the default format is flame graph.</p>
+<p><code>--cpu-mask &lt;CPU_MASK&gt;</code>:</p>
+<p>The mask of the CPU to generate traces for in the output profile data
+(default first 128 cores). This mask is presented as an integer.</p>
+<p><code>--output &lt;PATH&gt;</code>:</p>
+<p>The path to the output profile data file.</p>
+<p>If the user does not specify the output path, it will be generated from
+the crate name, current time stamp and the format.</p>
+<h2 id="examples-5"><a class="header" href="#examples-5">Examples</a></h2>
+<p>To profile a remote QEMU GDB server running some workload for flame graph, do:</p>
+<pre><code class="language-bash">cargo osdk profile --remote :1234 \
+	--samples 100 --interval 0.01
+</code></pre>
+<p>If wanted a detailed analysis, do:</p>
+<pre><code class="language-bash">cargo osdk profile --remote :1234 \
+	--samples 100 --interval 0.01 --output trace.json
+</code></pre>
+<p>When you get the above detailed analysis, you can also use the JSON file
+to generate the folded format for flame graph.</p>
+<pre><code class="language-bash">cargo osdk profile --parse trace.json --output trace.folded
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="manifest-1"><a class="header" href="#manifest-1">Manifest</a></h1>
+<h2 id="overview-8"><a class="header" href="#overview-8">Overview</a></h2>
+<p>The OSDK tool utilizes a manifest to define its precise behavior.
+Typically, the configuration file is named <code>OSDK.toml</code>
+and is placed in the root directory of the workspace
+(the same directory as the workspace's <code>Cargo.toml</code>).
+If there is only one crate and no workspace,
+the file is placed in the crate's root directory.</p>
+<p>For a crate inside workspace,
+it may have two distinct related manifests,
+one is of the workspace
+(in the same directory as the workspace's <code>Cargo.toml</code>)
+and one of the crate
+(in the same directory as the crate's <code>Cargo.toml</code>).
+OSDK will firstly try to find the crate-level manifest.
+If the crate-level manifest is found, OSDK uses it only.
+If the manifest is not found, OSDK will look into the
+workspace-level manifest.</p>
+<h2 id="configurations"><a class="header" href="#configurations">Configurations</a></h2>
+<p>Below, you will find a comprehensive version of
+the available configurations in the manifest.</p>
+<pre><code class="language-toml">project_type = "kernel"                     # &lt;1&gt; 
+
+# --------------------------- the default scheme settings -------------------------------
+supported_archs = ["x86_64", "riscv64"]     # &lt;2&gt;
+
+# The common options for all build, run and test subcommands 
+[build]                                     # &lt;3&gt;
+features = ["no_std", "alloc"]              # &lt;4&gt;
+profile = "dev"                             # &lt;5&gt;
+strip_elf = false                           # &lt;6&gt;
+encoding = "raw"                            # &lt;7&gt;
+[boot]                                      # &lt;8&gt;
+method = "qemu-direct"                      # &lt;9&gt;
+kcmd_args = ["SHELL=/bin/sh", "HOME=/"]     # &lt;10&gt;
+init_args = ["sh", "-l"]                    # &lt;11&gt;
+initramfs = "path/to/it"                    # &lt;12&gt;
+[grub]                                      # &lt;13&gt;  
+mkrescue_path = "path/to/it"                # &lt;14&gt;
+protocol = "multiboot2"                     # &lt;15&gt; 
+display_grub_menu = false                   # &lt;16&gt;
+[qemu]                                      # &lt;17&gt;
+path = "path/to/it"                         # &lt;18&gt;
+args = "-machine q35 -m 2G"                 # &lt;19&gt;
+
+# Special options for run subcommand
+[run]                                       # &lt;20&gt;
+[run.build]                                 # &lt;3&gt;
+[run.boot]                                  # &lt;8&gt;
+[run.grub]                                  # &lt;13&gt;
+[run.qemu]                                  # &lt;17&gt;
+
+# Special options for test subcommand
+[test]                                      # &lt;21&gt;
+[test.build]                                # &lt;3&gt;
+[test.boot]                                 # &lt;8&gt;
+[test.grub]                                 # &lt;13&gt;
+[test.qemu]                                 # &lt;17&gt;
+# ----------------------- end of the default scheme settings ----------------------------
+
+# A customized scheme settings
+[scheme."custom"]                           # &lt;22&gt;
+[scheme."custom".build]                     # &lt;3&gt;
+[scheme."custom".run]                       # &lt;20&gt;
+[scheme."custom".test]                      # &lt;21&gt;
+</code></pre>
+<p>Here are some additional notes for the fields:</p>
+<ol>
+<li>
+<p>The type of current crate.</p>
+<p>Optional. If not specified,
+the default value is inferred from the usage of the macro <code>#[ostd::main]</code>.
+if the macro is used, the default value is <code>kernel</code>.
+Otherwise, the default value is <code>library</code>.</p>
+<p>Possible values are <code>library</code> or <code>kernel</code>.</p>
+</li>
+<li>
+<p>The architectures that can be supported.</p>
+<p>Optional. By default OSDK supports all architectures.
+When building or running,
+if not specified in the CLI,
+the architecture of the host machine will be used.</p>
+<p>Possible values are <code>aarch64</code>, <code>riscv64</code>, <code>x86_64</code>.</p>
+</li>
+<li>
+<p>Options for compilation stage.</p>
+</li>
+<li>
+<p>Cargo features to activate.</p>
+<p>Optional. The default value is empty.</p>
+<p>Only features defined in <code>Cargo.toml</code> can be added to this array.</p>
+</li>
+<li>
+<p>Build artifacts with the specified Cargo profile.</p>
+<p>Optional. The default value is <code>dev</code>.</p>
+<p>Possible values are <code>dev</code>, <code>release</code>, <code>test</code>, and <code>bench</code>
+and other profiles defined in <code>Cargo.toml</code>.</p>
+</li>
+<li>
+<p>Whether to strip the built kernel ELF using <code>rust-strip</code>.</p>
+<p>Optional. The default value is <code>false</code>.</p>
+</li>
+<li>
+<p>Denote the encoding format for kernel self-decompression</p>
+<p>Optional. The default value is <code>raw</code>.</p>
+<p>Possible values are <code>raw</code>, <code>gzip</code> and <code>zlib</code>.</p>
+<p>If the boot protocol is not <code>linux</code>, it is not allowed to specipy the econding format.</p>
+</li>
+<li>
+<p>Options for booting the kernel.</p>
+</li>
+<li>
+<p>The boot method.</p>
+<p>Optional. The default value is <code>qemu-direct</code>.</p>
+<p>Possible values are <code>grub-rescue-iso</code>, <code>grub-qcow2</code> and <code>qemu-direct</code>.</p>
+</li>
+<li>
+<p>The arguments provided will be passed to the guest kernel.</p>
+<p>Optional. The default value is empty.</p>
+<p>Each argument should be in one of the following two forms:
+<code>KEY=VALUE</code> or <code>KEY</code> if no value is required.
+Each <code>KEY</code> can appear at most once.</p>
+</li>
+<li>
+<p>The arguments provided will be passed to the init process,
+usually, the init shell.</p>
+<p>Optional. The default value is empty.</p>
+</li>
+<li>
+<p>The path to the initramfs.</p>
+<p>Optional. The default value is empty.</p>
+<p>If the path is relative, it is relative to the manifest's enclosing directory.</p>
+</li>
+<li>
+<p>Grub options. Only take effect if boot method is <code>grub-rescue-iso</code> or <code>grub-qcow2</code>.</p>
+</li>
+<li>
+<p>The path to the <code>grub-mkrescue</code> executable.</p>
+<p>Optional. The default value is the executable in the system path, if any.</p>
+<p>If the path is relative, it is relative to the manifest's enclosing directory.</p>
+</li>
+<li>
+<p>The protocol GRUB used.</p>
+<p>Optional. The default value is <code>multiboot2</code>.</p>
+<p>Possible values are <code>linux</code>, <code>multiboot</code>, <code>multiboot2</code>.</p>
+</li>
+<li>
+<p>Whether to display the GRUB menu when booting with GRUB.</p>
+<p>Optional. The default value is <code>false</code>.</p>
+</li>
+<li>
+<p>Options for finding and starting QEMU.</p>
+</li>
+<li>
+<p>The path to the QEMU executable.</p>
+<p>Optional. The default value is the executable in the system path, if any.</p>
+<p>If the path is relative, it is relative to the manifest's enclosing directory.</p>
+</li>
+<li>
+<p>Additional arguments passed to QEMU are organized in a single string that
+can include any POSIX shell compliant separators.</p>
+<p>Optional. The default value is empty.</p>
+<p>Each argument should be in the form of <code>KEY</code> and <code>VALUE</code>
+or <code>KEY</code> if no value is required.
+Some keys can appear multiple times
+(e.g., <code>-device</code>, <code>-netdev</code>),
+while other keys can appear at most once.
+Certain keys, such as <code>-kernel</code> and <code>-initrd</code>,
+are not allowed to be set here
+as they may conflict with the settings of OSDK.</p>
+<p>The field will be evaluated, so it is ok to use environment variables
+in the arguments (usually for paths or conditional arguments). You can
+even use this mechanism to read from files by using command replacement
+<code>$(cat path/to/your/custom/args/file)</code>.</p>
+</li>
+<li>
+<p>Special settings for running. Only take effect when running <code>cargo osdk run</code>.</p>
+<p>By default, it inherits common options.</p>
+<p>Values set here are used to override common options.</p>
+</li>
+<li>
+<p>Special settings for testing.</p>
+<p>Similar to <code>20</code>, but only take effect when running <code>cargo osdk test</code>.</p>
+</li>
+<li>
+<p>The definition of customized scheme.</p>
+<p>A customized scheme has the same fields as the default scheme.
+By default, a customized scheme will inherit all options from the default scheme,
+unless overridden by new options.</p>
+</li>
+</ol>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<p>Here is a sound, self-explanatory example which is used by OSDK
+in the Asterinas project.</p>
+<p>In the script <code>./tools/qemu_args.sh</code>, the environment variables will be
+used to determine the actual set of qemu arguments.</p>
+<pre><code class="language-toml"># The OSDK manifest at the Asterinas root virtual workspace 
+# provides default OSDK settings for all packages.
+
+# The common options for build, run and test
+[boot]
+method = "grub-rescue-iso"
+
+[grub]
+protocol = "multiboot2"
+
+[qemu]
+args = "$(./tools/qemu_args.sh normal)"
+
+# Special options for running
+[run.boot]
+kcmd_args = [
+    "SHELL=/bin/sh",
+    "LOGNAME=root",
+    "HOME=/",
+    "USER=root",
+    "PATH=/bin:/benchmark",
+    "init=/usr/bin/busybox",
+]
+init_args = ["sh", "-l"]
+initramfs = "test/build/initramfs.cpio.gz"
+
+# Special options for testing
+[test.qemu]
+args = "$(./tools/qemu_args.sh test)"
+
+# Other Schemes
+
+[scheme."microvm"]
+boot.method = "qemu-direct"
+build.strip_elf = true
+qemu.args = "$(./tools/qemu_args.sh microvm)"
+
+[scheme."iommu"]
+supported_archs = ["x86_64"]
+qemu.args = "$(./tools/qemu_args.sh iommu)"
+
+[scheme."tdx"]
+supported_archs = ["x86_64"]
+build.features = ["cvm_guest"]
+boot.method = "grub-qcow2"
+grub.boot_protocol = "linux"
+qemu.args = "$(./tools/qemu_args.sh tdx)"
+
+[scheme."riscv"]
+boot.method = "qemu-direct"
+build.strip_elf = false
+
+qemu.args = """\
+    -cpu rv64,zba=true,zbb=true \
+    -machine virt \
+    -m 8G \
+    --no-reboot \
+    -nographic \
+    -display none \
+    -serial chardev:mux \
+    -monitor chardev:mux \
+    -chardev stdio,id=mux,mux=on,signal=off,logfile=qemu.log \
+    -drive if=none,format=raw,id=x0,file=./test/build/ext2.img \
+    -drive if=none,format=raw,id=x1,file=./test/build/exfat.img \
+    -device virtio-blk-device,drive=x0 \
+    -device virtio-keyboard-device \
+    -device virtio-serial-device \
+    -device virtconsole,chardev=mux \
+"""
+</code></pre>
+<h3 id="scheme"><a class="header" href="#scheme">Scheme</a></h3>
+<p>Scheme is an advanced feature that allows you to create multiple profiles for
+the same action (<code>build</code>, <code>run</code>, or <code>test</code>) under different scenarios (e.g.,
+x86 vs. RISC-V). Schemes support any user-defined keys (see the 22nd
+configuration) and can be selected using the <code>--scheme</code> CLI argument.</p>
+<p>If a scheme <code>&lt;s&gt;</code> is selected for an action (such as <code>test</code>), the value of an
+unspecified but required configuration <code>key</code> will be determined by the
+following rules:</p>
+<ul>
+<li>If the general config (<code>scheme.&lt;s&gt;.key</code>) exists for the selected scheme, use
+this value.</li>
+<li>Otherwise, if the default scheme has this configuration for the action
+(<code>test.key</code>), use this value.</li>
+<li>Otherwise, if the default scheme has this configuration (<code>key</code>), use this
+value.</li>
+</ul>
+<p>If the value is still not found, either the default value for the key will be
+used or an error will be thrown.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="rust-guidelines"><a class="header" href="#rust-guidelines">Rust Guidelines</a></h1>
+<h2 id="api-documentation-guidelines"><a class="header" href="#api-documentation-guidelines">API Documentation Guidelines</a></h2>
+<p>API documentation describes the meanings and usage of APIs,
+and will be rendered into web pages by rustdoc.</p>
+<p>It is necessary to add documentation to all public APIs,
+including crates, modules, structs, traits, functions, macros, and more.
+The use of the <code>#[warn(missing_docs)]</code> lint enforces this rule.</p>
+<p>Asterinas adheres to the API style guidelines of the Rust community.
+The recommended API documentation style can be found at
+<a href="https://doc.rust-lang.org/rustdoc/how-to-write-documentation.html">How to write documentation - The rustdoc book</a>.</p>
+<h2 id="lint-guidelines"><a class="header" href="#lint-guidelines">Lint Guidelines</a></h2>
+<p>Lints help us improve the code quality and find more bugs.
+When suppressing lints, the suppression should affect as little scope as possible,
+to make readers aware of the exact places where the lint is generated,
+and to make it easier for subsequent committers to maintain such lint.</p>
+<p>For example, if some methods in a trait are dead code,
+marking the entire trait as dead code is unnecessary and
+can easily be misinterpreted as the trait itself being dead code.
+Instead, the following pattern is preferred:</p>
+<pre><code class="language-rust">trait SomeTrait {
+    #[expect(dead_code)]
+    fn foo();
+
+    #[expect(dead_code)]
+    fn bar();
+
+    fn baz();
+}</code></pre>
+<p>There is one exception:
+If it is clear enough that every member will trigger the lint,
+it is reasonable to expect the lint at the type level.
+For example, in the following code,
+we add <code>#[expect(non_camel_case_types)]</code> for the type <code>SomeEnum</code>,
+instead of for each variant of the type:</p>
+<pre><code class="language-rust">#[expect(non_camel_case_types)]
+enum SomeEnum {
+    FOO_ABC,
+    BAR_DEF,
+}</code></pre>
+<h3 id="when-to-expectdead_code"><a class="header" href="#when-to-expectdead_code">When to <code>#[expect(dead_code)]</code></a></h3>
+<p>In general, dead code should be avoided because
+<em>(i)</em> it introduces unnecessary maintenance overhead, and
+<em>(ii)</em> its correctness can only be guaranteed by
+manual and error-pruned review of the code.</p>
+<p>In the case where expecting dead code is necessary,
+it should fulfill the following requirements:</p>
+<ol>
+<li>We have a <em>concrete case</em> that will be implemented in the future and
+will turn the dead code into used code.</li>
+<li>The semantics of the dead code are <em>clear</em> enough
+(perhaps with the help of some comments),
+<em>even if the use case has not been added</em>.</li>
+<li>The dead code is <em>simple</em> enough that
+both the committer and the reviewer can be confident that
+the code must be correct <em>without even testing it</em>.</li>
+<li>It serves as a counterpart to existing non-dead code.</li>
+</ol>
+<p>For example, it is fine to add ABI constants that are unused because
+the corresponding feature (<em>e.g.,</em> a system call) is partially implemented.
+This is a case where all of the above requirements are met,
+so adding them as dead code is perfectly acceptable.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="boterinas"><a class="header" href="#boterinas">Boterinas</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p><code>@boterinas</code> is a general-purpose bot designed for a wide variety of tasks in Asterinas. It streamlines maintenance tasks to enhance workflow efficiency.</p>
+<p>Commands are issued by writing comments that start with the text <code>@boterinas</code>. The available commands depend on which repository you are using. The main Asterinas repository contains a <code>triagebot.toml</code> file where you can see which features are enabled.</p>
+<p>Commands for GitHub issues or pull requests should be issued by writing <code>@boterinas</code> followed by the command anywhere in the comment. Note that <code>@boterinas</code> will ignore commands in Markdown code blocks, inline code spans, or blockquotes. You can enter multiple <code>@boterinas</code> commands in a single comment.</p>
+<p>For example, you can claim an issue and add a label in the same comment.</p>
+<pre><code class="language-markdown">@boterinas claim
+@boterinas label C-enhancement
+</code></pre>
+<p>Additionally, <code>@boterinas</code> allows for editing comments. If you don't change the text of a command, the edit will be ignored. However, if you modify an existing command or add new ones, those commands will be processed.</p>
+<p>Below, you'll find a comprehensive guide on how to use <code>@boterinas</code> effectively.</p>
+<h2 id="commands-and-usage"><a class="header" href="#commands-and-usage">Commands and Usage</a></h2>
+<h3 id="workflow-management"><a class="header" href="#workflow-management">Workflow Management</a></h3>
+<ul>
+<li><strong><code>@boterinas rerun</code></strong><br />
+Restarts the workflow of the current pull request if it has failed unexpectedly. Only the author of the pull request can use this command.</li>
+</ul>
+<h3 id="issue-and-pull-request-management"><a class="header" href="#issue-and-pull-request-management">Issue and Pull Request Management</a></h3>
+<ul>
+<li>
+<p><strong><code>@boterinas claim</code></strong><br />
+Assigns the issue or pull request to yourself.</p>
+</li>
+<li>
+<p><strong><code>@boterinas release-assignment</code></strong><br />
+Removes the current assignee from an issue or pull request. This command can only be executed by the current assignee or a team member.</p>
+</li>
+<li>
+<p><strong><code>@boterinas assign @user</code></strong><br />
+Assigns a specific user to the issue or pull request. Only team members have permission to assign other users.</p>
+</li>
+</ul>
+<h3 id="label-management"><a class="header" href="#label-management">Label Management</a></h3>
+<ul>
+<li>
+<p><strong><code>@boterinas label &lt;label&gt;</code></strong><br />
+Adds a label to the issue or pull request.<br />
+<em>Example:</em> <code>@boterinas label C-enhancement C-rfc</code></p>
+</li>
+<li>
+<p><strong><code>@boterinas label -&lt;label&gt;</code></strong><br />
+Removes a label from the issue or pull request.<br />
+<em>Example:</em> <code>@boterinas label -C-enhancement -C-bug</code></p>
+</li>
+</ul>
+<h3 id="status-indicators"><a class="header" href="#status-indicators">Status Indicators</a></h3>
+<ul>
+<li>
+<p><strong><code>@boterinas author</code></strong><br />
+Indicates that a pull request is waiting on the author. It assigns the <code>S-waiting-on-author</code> label and removes both <code>S-waiting-on-review</code> and <code>S-blocked</code>, if present.</p>
+</li>
+<li>
+<p><strong><code>@boterinas blocked</code></strong><br />
+Marks a pull request as blocked on something.</p>
+</li>
+<li>
+<p><strong><code>@boterinas ready</code></strong><br />
+Indicates that a pull request is ready for review. This command can also be invoked with the aliases <code>@boterinas review</code> or <code>@boterinas reviewer</code>.</p>
+</li>
+</ul>
+<h2 id="notes"><a class="header" href="#notes">Notes</a></h2>
+<ul>
+<li>Only team members can assign users or remove assignments.</li>
+<li>Labels are crucial for organizing issues and pull requests, so ensure they are used consistently and accurately.</li>
+<li>For any issues or questions regarding <code>@boterinas</code>, please reach out to the team for support.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="version-bump"><a class="header" href="#version-bump">Version Bump</a></h1>
+<h2 id="version-numbers"><a class="header" href="#version-numbers">Version Numbers</a></h2>
+<p>Currently, Asterinas regularly releases two main artifacts
+for the Rust OS developer community:
+the <a href="https://crates.io/crates/cargo-osdk">OSDK</a> and <a href="https://crates.io/crates/ostd">OSTD</a>.
+To support development with these tools,
+we also publish companion Docker images on DockerHub,
+(i.e., <a href="https://hub.docker.com/r/asterinas/osdk"><code>asterinas/osdk</code></a>).
+While the Asterinas kernel is not yet ready for public binary release,
+its development Docker images
+(i.e., <a href="https://hub.docker.com/r/asterinas/asterinas"><code>asterinas/asterinas</code></a>)
+are released regularly.</p>
+<p>All released crates for OSDK and OSTD share the same version number,
+which is stored in the <code>VERSION</code> file at the project root.
+The current content of this file is shown below.</p>
+<pre><code>0.15.2
+</code></pre>
+<p>Similarly,
+the Docker images’ version number is stored in the <code>DOCKER_IMAGE_VERSION</code> file,
+as shown below.</p>
+<pre><code>0.15.2-20250722
+</code></pre>
+<p>We use a custom format for Docker image versions: <code>MAJOR.MINOR.PATCH-DATE</code>.
+The <code>MAJOR.MINOR.PATCH</code> component aligns with the target version of published crates,
+while the <code>DATE</code> component allows us to introduce non-breaking updates to the Docker images
+without publishing a new crate version.
+Normally,
+the version in <code>VERSION</code> and the version in <code>DOCKER_IMAGE_VERSION</code>
+(ignoring the <code>DATE</code> part) are identical,
+except during the version bump process.</p>
+<h2 id="how-to-bump-versions"><a class="header" href="#how-to-bump-versions">How to Bump Versions</a></h2>
+<p>We recommend a three-commit procedure to bump versions:</p>
+<ol>
+<li><strong>Commit 1 "Bump the Docker image version"</strong> triggers the generation of a new Docker image.</li>
+<li><strong>Commit 2 "Switch to a new Docker image"</strong> makes the codebase use the new Docker image.</li>
+<li><strong>Commit 3 "Bump the project version"</strong> triggers the release of new crates.</li>
+</ol>
+<p>Depending on your exact purpose,
+you may complete the version bump process with at most three commits within two PRs.</p>
+<ul>
+<li><strong>To make non-breaking changes to the Docker images</strong>,
+submit Commit 1 in a PR, then Commit 2 in another.</li>
+<li><strong>To make breaking changes to the Docker images and the crates' APIs</strong>,
+submit Commit 1 in a PR, then Commit 2 and 3 in another.</li>
+</ul>
+<p>Across the three commits,
+you will be assisted with a convenient utility script, <code>tools/bump_version.sh</code>,</p>
+<h3 id="commit-1-bump-the-docker-image-version"><a class="header" href="#commit-1-bump-the-docker-image-version">Commit 1: "Bump the Docker image version"</a></h3>
+<p>After updating the Docker image content,
+increment the Docker image version using the following command:</p>
+<pre><code>./bump_version.sh --docker_version_file [major | minor | patch | date]
+</code></pre>
+<p>The second argument specifies which part of the Docker image version to increment.
+Use <code>date</code> for non-breaking Docker image changes.
+If the changes affect the crates intended to publish,
+select <code>major</code>, <code>minor</code>, or <code>patch</code> in line with semantic versioning.</p>
+<p>This command updates the <code>DOCKER_IMAGE_VERSION</code> file.
+Submit these changes as a pull request.
+Once merged, the CI will automatically trigger the creation of new Docker images.</p>
+<h3 id="commit-2-switch-to-a-new-docker-image"><a class="header" href="#commit-2-switch-to-a-new-docker-image">Commit 2: "Switch to a new Docker image"</a></h3>
+<p>Creating new Docker images can be time-consuming.
+Once the images have been pushed to DockerHub,
+write a follow-up commit to
+update all Docker image version references across the codebase.</p>
+<pre><code>./bump_version.sh --docker_version_refs
+</code></pre>
+<p>If your purpose is to publish non-breaking changes to the Docker images,
+then submit this commit in a PR and then your job is finished.
+Otherwise, go on with Commit 3.</p>
+<h3 id="commit-3-bump-the-project-version"><a class="header" href="#commit-3-bump-the-project-version">Commit 3: "Bump the project version"</a></h3>
+<p>In this commit,
+synchronize the version number in <code>VERSION</code> with
+that in <code>DOCKER_IMAGE_VERSION</code> by running:</p>
+<pre><code>./bump_version.sh --version_file
+</code></pre>
+<p>This command also updates all version numbers
+in the <code>Cargo.toml</code> files of all crates scheduled for release.
+Pack these changes into a third commit and
+submit the last two commits in a single PR.
+After the PR is merged into the <code>main</code> branch,
+the CI will automatically publish the new crate versions.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
