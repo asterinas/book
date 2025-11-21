@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Networking &amp; sockets - The Asterinas Book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../../../favicon.svg">
+        <link rel="shortcut icon" href="../../../../favicon.png">
+        <link rel="stylesheet" href="../../../../css/variables.css">
+        <link rel="stylesheet" href="../../../../css/general.css">
+        <link rel="stylesheet" href="../../../../css/chrome.css">
+        <link rel="stylesheet" href="../../../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../../../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../../../";
+            const default_light_theme = "navy";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../../../../searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../../../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Asterinas Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="networking--sockets"><a class="header" href="#networking--sockets">Networking &amp; Sockets</a></h1>
+<!--
+Put system calls such as
+
+socket, socketpair, bind, listen, accept, connect, getsockname, getpeername, 
+sendto, recvfrom, sendmsg, recvmsg, shutdown, setsockopt, getsockopt, 
+sendmmsg, recvmmsg, accept4, recvmsg, and socketcall
+under this category.
+-->
+<h2 id="socket-creation"><a class="header" href="#socket-creation">Socket Creation</a></h2>
+<h3 id="socket"><a class="header" href="#socket"><code>socket</code></a></h3>
+<p>Supported functionality in SCML:</p>
+<pre><code class="language-c">// Optional flags for socket type
+opt_type_flags = SOCK_NONBLOCK | SOCK_CLOEXEC;
+
+// Create a UNIX socket
+socket(
+    family = AF_UNIX,
+    type = SOCK_STREAM | SOCK_SEQPACKET | &lt;opt_type_flags&gt;,
+    protocol = 0
+);
+
+// Create an IPv4 socket (TCP or UDP)
+socket(
+    family = AF_INET,
+    type = SOCK_STREAM | SOCK_DGRAM | &lt;opt_type_flags&gt;,
+    protocol = IPPROTO_IP | IPPROTO_TCP | IPPROTO_UDP
+);
+
+// Create a netlink socket
+socket(
+    family = AF_NETLINK,
+    type = SOCK_RAW | SOCK_DGRAM | &lt;opt_type_flags&gt;,
+    protocol = NETLINK_ROUTE | NETLINK_KOBJECT_UEVENT
+);
+
+// Create a VSOCK socket
+socket(
+    family = AF_VSOCK,
+    type = SOCK_STREAM | &lt;opt_type_flags&gt;,
+    protocol = 0
+);
+</code></pre>
+<p>For more information,
+see <a href="https://man7.org/linux/man-pages/man2/socket.2.html">the man page</a>.</p>
+<h3 id="socketpair"><a class="header" href="#socketpair"><code>socketpair</code></a></h3>
+<p>Supported functionality in SCML:</p>
+<pre><code class="language-c">// Optional flags for socket type
+opt_type_flags = SOCK_NONBLOCK | SOCK_CLOEXEC;
+
+// Create a pair of connected UNIX sockets
+socketpair(
+    family = AF_UNIX,
+    type = SOCK_STREAM | SOCK_SEQPACKET | &lt;opt_type_flags&gt;,
+    protocol = 0,
+    sv
+);
+</code></pre>
+<p>For more information,
+see <a href="https://man7.org/linux/man-pages/man2/socketpair.2.html">the man page</a>.</p>
+<h2 id="socket-setup"><a class="header" href="#socket-setup">Socket Setup</a></h2>
+<h3 id="bind"><a class="header" href="#bind"><code>bind</code></a></h3>
+<p>Supported functionality in SCML:</p>
+<pre><code class="language-c">struct sockaddr = {
+    sa_family = AF_INET | AF_UNIX | AF_NETLINK | AF_VSOCK,
+    ..
+};
+
+// Bind a socket to an address
+bind(
+    sockfd, addr = &lt;sockaddr&gt;, addrlen
+);
+</code></pre>
+<p>For more information,
+see <a href="https://man7.org/linux/man-pages/man2/bind.2.html">the man page</a>.</p>
+<h3 id="connect"><a class="header" href="#connect"><code>connect</code></a></h3>
+<p>Supported functionality in SCML:</p>
+<pre><code class="language-c">struct sockaddr = {
+    sa_family = AF_INET | AF_UNIX | AF_NETLINK | AF_VSOCK,
+    ..
+};
+
+// Connect to a peer socket
+connect(
+    sockfd, addr = &lt;sockaddr&gt;, addrlen
+);
+</code></pre>
+<p>For more information,
+see <a href="https://man7.org/linux/man-pages/man2/connect.2.html">the man page</a>.</p>
+<h2 id="socket-communication"><a class="header" href="#socket-communication">Socket Communication</a></h2>
+<h3 id="sendto-and-sendmsg"><a class="header" href="#sendto-and-sendmsg"><code>sendto</code> and <code>sendmsg</code></a></h3>
+<p>Supported functionality in SCML:</p>
+<pre><code class="language-c">struct sockaddr = {
+    sa_family = AF_INET | AF_UNIX | AF_NETLINK | AF_VSOCK,
+    ..
+};
+
+// Send message on a socket
+sendto(
+    sockfd, buf, len,
+    flags = 0,
+    dest_addr = &lt;sockaddr&gt;,
+    addrlen
+);
+
+// Send message using scatter-gather buffers and ancillary data
+sendmsg(
+    sockfd,
+    msg = {
+        msg_name = &lt;sockaddr&gt;,
+        msg_control = NULL,
+        ..
+    },
+    flags = 0
+);
+</code></pre>
+<p>Unsupported flags:</p>
+<ul>
+<li><code>MSG_CONFIRM</code></li>
+<li><code>MSG_DONTROUTE</code></li>
+<li><code>MSG_DONTWAIT</code></li>
+<li><code>MSG_EOR</code></li>
+<li><code>MSG_MORE</code></li>
+<li><code>MSG_CONFIRM</code></li>
+<li><code>MSG_NOSIGNAL</code></li>
+<li><code>MSG_OOB</code></li>
+<li><code>MSG_FASTOPEN</code></li>
+</ul>
+<p>For more information,
+see <a href="https://man7.org/linux/man-pages/man2/sendto.2.html">the man page</a>.</p>
+<h3 id="recvfrom-and-recvmsg"><a class="header" href="#recvfrom-and-recvmsg"><code>recvfrom</code> and <code>recvmsg</code></a></h3>
+<p>Supported functionality in SCML:</p>
+<pre><code class="language-c">// Receive message from a socket
+recvfrom(
+    sockfd, buf, size,
+    flags = 0,
+    src_addr, addrlen
+);
+
+// Receive message using scatter-gather buffers and ancillary data
+recvmsg(
+    sockfd,
+    msg,
+    flags = 0
+);
+</code></pre>
+<p>Partially-supported flags:</p>
+<ul>
+<li><code>MSG_PEEK</code> because it is only supported in netlink socket</li>
+</ul>
+<p>For more information,
+see <a href="https://man7.org/linux/man-pages/man2/recvfrom.2.html">the man page</a>.</p>
+<h2 id="socket-options"><a class="header" href="#socket-options">Socket Options</a></h2>
+<h3 id="getsockopt-and-setsockopt"><a class="header" href="#getsockopt-and-setsockopt"><code>getsockopt</code> and <code>setsockopt</code></a></h3>
+<p>Supported functionality in SCML:</p>
+<pre><code class="language-c">socket_options = SO_SNDBUF | SO_RCVBUF | SO_REUSEADDR | SO_REUSEPORT |
+                 SO_PRIORITY | SO_LINGER | SO_PASSCRED | SO_KEEPALIVE |
+                 SO_SNDBUFFORCE | SO_RCVBUFFORCE | SO_ERROR |
+                 SO_PEERCRED | SO_ACCEPTCONN | SO_PEERGROUPS;
+
+ip_options = IP_TOS | IP_TTL | IP_HDRINCL;
+
+tcp_options = TCP_NODELAY | TCP_MAXSEG | TCP_KEEPIDLE | TCP_SYNCNT |
+              TCP_DEFER_ACCEPT | TCP_WINDOW_CLAMP | TCP_CONGESTION |
+              TCP_USER_TIMEOUT | TCP_INQ;
+
+// Get options at socket level
+getsockopt(
+    sockfd, level = SOL_SOCKET,
+    optname = &lt;socket_options&gt;,
+    optval, optlen
+);
+
+// Get options at IP level
+getsockopt(
+    sockfd, level = SOL_IP,
+    optname = &lt;ip_options&gt;,
+    optval, optlen
+);
+
+// Get options at TCP level
+getsockopt(
+    sockfd, level = SOL_TCP,
+    optname = &lt;tcp_options&gt;,
+    optval, optlen
+);
+
+// Set options at socket level
+setsockopt(
+    sockfd, level = SOL_SOCKET,
+    optname = &lt;socket_options&gt;,
+    optval, optlen
+);
+
+// Set options at IP level
+setsockopt(
+    sockfd, level = SOL_IP,
+    optname = &lt;ip_options&gt;,
+    optval, optlen
+);
+
+// Set options at TCP level
+setsockopt(
+    sockfd, level = SOL_TCP,
+    optname = &lt;tcp_options&gt;,
+    optval, optlen
+);
+
+// Set options at netlink level
+setsockopt(
+    sockfd, level = SOL_NETLINK,
+    optname = NETLINK_ADD_MEMBERSHIP | NETLINK_DROP_MEMBERSHIP,
+    optval, optlen
+);
+</code></pre>
+<p>For more information,
+see <a href="https://man7.org/linux/man-pages/man2/getsockopt.2.html">the man page</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../../../kernel/linux-compatibility/syscall-feature-coverage/inter-process-communication/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../../../kernel/linux-compatibility/syscall-feature-coverage/signals-and-timers/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../../../kernel/linux-compatibility/syscall-feature-coverage/inter-process-communication/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../../../kernel/linux-compatibility/syscall-feature-coverage/signals-and-timers/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../../../elasticlunr.min.js"></script>
+        <script src="../../../../mark.min.js"></script>
+        <script src="../../../../searcher.js"></script>
+
+        <script src="../../../../clipboard.min.js"></script>
+        <script src="../../../../highlight.js"></script>
+        <script src="../../../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
